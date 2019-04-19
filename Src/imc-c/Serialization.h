@@ -16,8 +16,8 @@
 // Author: Ricardo Martins                                                  *
 //***************************************************************************
 
-#ifndef IMC_SERIALIZATION_HPP_INCLUDED_
-#define IMC_SERIALIZATION_HPP_INCLUDED_
+#ifndef IMC_SERIALIZATION_H_INCLUDED_
+#define IMC_SERIALIZATION_H_INCLUDED_
 
 
 #include <string.h>
