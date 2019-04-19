@@ -40,7 +40,7 @@ typedef struct Acceleration
   double z;
 } Acceleration;
 
-static uint16_t
+uint16_t
 Acceleration_getIdStatic(void)
 {
   return 257;
