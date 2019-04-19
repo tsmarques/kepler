@@ -19,13 +19,9 @@
 #ifndef IMC_SERIALIZATION_HPP_INCLUDED_
 #define IMC_SERIALIZATION_HPP_INCLUDED_
 
-//! IMC Synchronization number
-#define DUNE_IMC_CONST_SYNC 0xFE54
-
-//! IMC's header size
-#define DUNE_IMC_CONST_HEADER_SIZE 20
 
 #include <string.h>
+#include "IMC.h"
 
 inline size_t
 serialize(const void* v, const uint16_t size, uint8_t *bfr)
