@@ -65,11 +65,17 @@ Acceleration_new(void)
   return accel;
 }
 
+size_t
+Acceleration_getFixedSerializationSize(void)
+{
+  return 32;
+}
+
 uint8_t*
 Acceleration_serialize(const Acceleration* accel, uint8_t* bfr__)
 {
   uint8_t* ptr__ = bfr__;
-  ptr__ += serializeHeader(&accel->m_header, Acceleration_getFixedSerializationSize(), ptr__)
+  ptr__ += serializeHeader(&accel->m_header, Acceleration_getFixedSerializationSize(), ptr__);
   ptr__ += serialize(&accel->time, sizeof(accel->time),ptr__);
   ptr__ += serialize(&accel->x, sizeof(accel->x),ptr__);
   ptr__ += serialize(&accel->y, sizeof(accel->y),ptr__);
@@ -87,12 +93,6 @@ const char*
 Acceleration_getName(void)
 {
   return "Acceleration";
-}
-
-size_t
-Acceleration_getFixedSerializationSize(void)
-{
-  return 32;
 }
 
 #endif
