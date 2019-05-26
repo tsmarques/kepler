@@ -38,10 +38,6 @@
   */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-#include "stm32f7xx_hal.h"
-
-#include "Acceleration.h"
-#include "EstimatedState.h"
 
 /* USER CODE BEGIN Includes */
 

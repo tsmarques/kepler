@@ -111,16 +111,13 @@ C_DEFS =  \
 AS_INCLUDES = 
 
 
-IMC_INCLUDES = -ISrc/imc-c
-
 # C includes
 C_INCLUDES =  \
 -IInc \
 -IDrivers/STM32F7xx_HAL_Driver/Inc \
 -IDrivers/STM32F7xx_HAL_Driver/Inc/Legacy \
 -IDrivers/CMSIS/Device/ST/STM32F7xx/Include \
--IDrivers/CMSIS/Include \
-$(IMC_INCLUDES)
+-IDrivers/CMSIS/Include
 
 
 # compile gcc flags

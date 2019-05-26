@@ -1,0 +1,3 @@
+[submodule "imc-c"]
+	path = Src/imc-c
+	url = git@gitlab.com:cep-projects/project-saturn/software/imc-c.git
