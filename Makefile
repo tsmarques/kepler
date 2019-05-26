@@ -20,7 +20,7 @@ TARGET = ctb
 # building variables
 ######################################
 # debug build?
-DEBUG = 1
+DEBUG = 0
 # optimization
 OPT = -Og
 
@@ -34,6 +34,10 @@ BUILD_DIR = build
 ######################################
 # source
 ######################################
+
+CTB_SOURCES = \
+	Src/ctb.c
+
 # C sources
 C_SOURCES =  \
 Src/main.c \
@@ -54,7 +58,8 @@ Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_pwr_ex.c \
 Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal.c \
 Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_i2c.c \
 Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_i2c_ex.c \
-Src/system_stm32f7xx.c  
+Src/system_stm32f7xx.c \
+$(CTB_SOURCES)
 
 # ASM sources
 ASM_SOURCES =  \

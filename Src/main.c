@@ -38,6 +38,7 @@
   */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "ctb.h"
 
 /* USER CODE BEGIN Includes */
 
@@ -98,7 +99,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-
+    ctb_main();
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
