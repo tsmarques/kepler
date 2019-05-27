@@ -1,6 +1,6 @@
 #include <uart.h>
 
-static UART_HandleTypeDef huart1;
+UART_HandleTypeDef huart1;
 
 /* USART1 init function */
 void MX_USART1_UART_Init(void)
@@ -18,7 +18,7 @@ void MX_USART1_UART_Init(void)
   huart1.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
   if (HAL_UART_Init(&huart1) != HAL_OK)
   {
-    _Error_Handler(__FILE__, __LINE__);
+    // TODO what to to?
   }
 }
 
