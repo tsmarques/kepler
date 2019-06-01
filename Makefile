@@ -36,8 +36,7 @@ BUILD_DIR = build
 ######################################
 
 CTB_SOURCES = \
-	Src/ctb.c \
-	uart.c
+	Src/ctb.c
 
 # C sources
 C_SOURCES =  \

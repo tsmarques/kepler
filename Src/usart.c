@@ -18,9 +18,10 @@
   */
 
 /* Includes ------------------------------------------------------------------*/
-#include "usart.h"
+#include <usart.h>
 
 /* USER CODE BEGIN 0 */
+
 
 /* USER CODE END 0 */
 
@@ -310,6 +311,13 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
 } 
 
 /* USER CODE BEGIN 1 */
+
+void uart_print(const char* msg, unsigned size)
+{
+  // TODO check 0XFFFF
+  HAL_UART_Transmit(&huart4, (uint8_t*)msg, size, 0xFFFF);
+}
+
 
 /* USER CODE END 1 */
 

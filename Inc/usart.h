@@ -46,6 +46,8 @@ void MX_UART8_Init(void);
 
 /* USER CODE BEGIN Prototypes */
 
+void uart_print(const char* msg, unsigned size);
+
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus
