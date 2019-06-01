@@ -201,7 +201,7 @@ void imu_initialize(void)
 }
 
 void
-imu_get_accelerations(float* accel_data, float* accel_bias)
+imu_get_accelerations(float* accel_data)
 {
   select_bank(USER_BANK_0);
   HAL_Delay(1);
@@ -221,7 +221,7 @@ imu_get_accelerations(float* accel_data, float* accel_bias)
 }
 
 void
-imu_get_angular_velocities(float* gyro_data, float* gyro_bias)
+imu_get_angular_velocities(float* gyro_data)
 {
   select_bank(USER_BANK_0);
   HAL_Delay(1);
