@@ -4,7 +4,7 @@
 #include "stm32f7xx_hal.h"
 
 //! CTB
-#include <uart.h>
+#include <usart.h>
 
 //! IMC includes
 #include <imc-c/Acceleration.h>
