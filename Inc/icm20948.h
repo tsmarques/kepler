@@ -165,10 +165,10 @@ uint8_t imu_get_device_id(void);
 void imu_initialize(void);
 
 //! Read xyz accelerations in g's
-void imu_get_accelerations(float* accel_data);
+void imu_get_accelerations(float* ax, float* ay, float *az);
 
 //! Read xyz angular velocities deg/s
-void imu_get_angular_velocities(float* gyro_data);
+void imu_get_angular_velocities(float* gx, float* gy, float *gz);
 
 //! Calibrate this device and acquire the bias
 void imu_calibrate(float * gyroBias, float * accelBias);

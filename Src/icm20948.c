@@ -201,7 +201,7 @@ void imu_initialize(void)
 }
 
 void
-imu_get_accelerations(float* accel_data)
+imu_get_accelerations(float* ax, float* ay, float* az)
 {
   select_bank(USER_BANK_0);
   HAL_Delay(1);
@@ -215,13 +215,13 @@ imu_get_accelerations(float* accel_data)
   accel[2] = ((int16_t) raw_data[4] << 8) | raw_data[5];
 
   float accel_res = acceleration_resolution(accel_scale);
-  accel_data[0] = (float)accel[0] * accel_res;
-  accel_data[1] = (float)accel[1] * accel_res;
-  accel_data[2] = (float)accel[2] * accel_res;
+  *ax = (float)accel[0] * accel_res;
+  *ay = (float)accel[1] * accel_res;
+  *az = (float)accel[2] * accel_res;
 }
 
 void
-imu_get_angular_velocities(float* gyro_data)
+imu_get_angular_velocities(float* gx, float* gy, float *gz)
 {
   select_bank(USER_BANK_0);
   HAL_Delay(1);
@@ -235,9 +235,9 @@ imu_get_angular_velocities(float* gyro_data)
   gyro[2] = ((int16_t)raw_data[4] << 8) | raw_data[5];
 
   float gyro_res = gyroscope_resolution(gyro_scale);
-  gyro_data[0] = (float)gyro[0] * gyro_res;
-  gyro_data[1] = (float)gyro[1] * gyro_res;
-  gyro_data[2] = (float)gyro[2] * gyro_res;
+  *gx = (float)gyro[0] * gyro_res;
+  *gy = (float)gyro[1] * gyro_res;
+  *gz = (float)gyro[2] * gyro_res;
 }
 
 uint8_t imu_get_device_id(void)
