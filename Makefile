@@ -36,7 +36,8 @@ BUILD_DIR = build
 ######################################
 
 CTB_SOURCES = \
-	Src/ctb.c
+	Src/ctb.c \
+	Src/icm20948.c
 
 # C sources
 C_SOURCES =  \
