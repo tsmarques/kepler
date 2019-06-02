@@ -131,7 +131,7 @@ gyroscope_resolution(uint8_t gyro_scale)
   return gyro_res;
 }
 
-void imu_initialize(void)
+void icm_initialize(void)
 {
     select_bank(USER_BANK_0);
     HAL_Delay(10);
@@ -201,7 +201,7 @@ void imu_initialize(void)
 }
 
 void
-imu_get_accelerations(double* ax, double* ay, double* az)
+icm_get_accelerations(double* ax, double* ay, double* az)
 {
   select_bank(USER_BANK_0);
   HAL_Delay(1);
@@ -221,7 +221,7 @@ imu_get_accelerations(double* ax, double* ay, double* az)
 }
 
 void
-imu_get_angular_velocities(double* gx, double* gy, double *gz)
+icm_get_angular_velocities(double* gx, double* gy, double *gz)
 {
   select_bank(USER_BANK_0);
   HAL_Delay(1);
@@ -240,7 +240,7 @@ imu_get_angular_velocities(double* gx, double* gy, double *gz)
   *gz = (double)gyro[2] * gyro_res;
 }
 
-uint8_t imu_get_device_id(void)
+uint8_t icm_get_device_id(void)
 {
   select_bank(USER_BANK_0);
   HAL_Delay(10);
@@ -251,7 +251,7 @@ uint8_t imu_get_device_id(void)
 }
 
 void
-imu_calibrate(float * gyroBias, float * accelBias)
+icm_calibrate(float * gyroBias, float * accelBias)
 {
   uint8_t data[12]; // data array to hold accelerometer and gyro x, y, z, data
   uint16_t ii, packet_count, fifo_count;

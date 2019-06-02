@@ -159,18 +159,18 @@ void MX_SPI2_Init(void);
 #define GFS_2000DPS                     3
 
 //! Read this device's ID
-uint8_t imu_get_device_id(void);
+uint8_t icm_get_device_id(void);
 
 //! Initialize IMU's registers
-void imu_initialize(void);
+void icm_initialize(void);
 
 //! Read xyz accelerations in g's
-void imu_get_accelerations(double* ax, double* ay, double *az);
+void icm_get_accelerations(double* ax, double* ay, double *az);
 
 //! Read xyz angular velocities deg/s
-void imu_get_angular_velocities(double* gx, double* gy, double *gz);
+void icm_get_angular_velocities(double* gx, double* gy, double *gz);
 
 //! Calibrate this device and acquire the bias
-void imu_calibrate(float * gyroBias, float * accelBias);
+void icm_calibrate(float * gyroBias, float * accelBias);
 
 #endif /* ICM20948_H_ */

@@ -30,8 +30,8 @@ ctb_main(void)
 
   while(1)
   {
-    imu_get_accelerations(&imc_accel.x, &imc_accel.y, &imc_accel.z);
-    imu_get_angular_velocities(&imc_angular_vel.x, &imc_angular_vel.y, &imc_angular_vel.z);
+    icm_get_accelerations(&imc_accel.x, &imc_accel.y, &imc_accel.z);
+    icm_get_angular_velocities(&imc_angular_vel.x, &imc_angular_vel.y, &imc_angular_vel.z);
 
     // imc_accel.time = ...
     // imc_angular_vel = ...
