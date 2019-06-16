@@ -25,11 +25,9 @@
 /* USER CODE BEGIN Includes */
 #include "dma.h"
 #include "sdmmc.h"
-#include "spi.h"
 #include "usart.h"
 #include "gpio.h"
-#include "sdmmc.h"
-#include "spi.h"
+#include "icm20948.h"
 
 void MX_SPI2_Init(void);
 
