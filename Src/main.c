@@ -20,14 +20,18 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+
+/* Private includes ----------------------------------------------------------*/
+/* USER CODE BEGIN Includes */
 #include "dma.h"
 #include "sdmmc.h"
 #include "spi.h"
 #include "usart.h"
 #include "gpio.h"
+#include "sdmmc.h"
+#include "spi.h"
 
-/* Private includes ----------------------------------------------------------*/
-/* USER CODE BEGIN Includes */
+void MX_SPI2_Init(void);
 
 /* USER CODE END Includes */
 
