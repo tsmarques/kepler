@@ -16,11 +16,17 @@
 #include <imc-c/GpsFix.h>
 #include <imc-c/AngularVelocity.h>
 
-static const char* hello_msg = "\x4e\x6f\x73\x79\x20\x62\x61\x73\x74\x61\x72\x64\x20\x61\x69\x6e\x27\x74\x20\x79\x61\x3f\x5c\x6e";
+static const char* hello_msg =
+ "\x4e\x6f\x73\x79\x20\x62\x61\x73\x74\x61\x72\x64"
+ "\x20\x61\x69\x6e\x27\x74\x20\x79\x61\x3f\x5c\x6e";
 
+//! IMC accelerations' message
 static Acceleration imc_accel;
+
+//! IMC angular velocities' message
 static AngularVelocity imc_angular_vel;
 
+//! ICM20938 imu device
 static imu_t icm20948;
 
 
