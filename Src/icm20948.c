@@ -47,11 +47,11 @@ icm_register_device(imu_t* device)
 {
   strcpy(device->device_name, ICM_DEVICE_NAME);
 
-  device->imu_get_device_id = icm_get_device_id;
-  device->imu_initialize = icm_initialize;
-  device->imu_get_accelerations = icm_get_accelerations;
-  device->imu_get_angular_velocities = icm_get_angular_velocities;
-  device->icm_calibrate = icm_calibrate;
+  device->get_device_id = icm_get_device_id;
+  device->initialize = icm_initialize;
+  device->get_accelerations = icm_get_accelerations;
+  device->get_angular_velocities = icm_get_angular_velocities;
+  device->calibrate = icm_calibrate;
 }
 
 static void write_byte(uint8_t reg, uint8_t Data) // ***
