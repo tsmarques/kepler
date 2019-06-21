@@ -5,6 +5,7 @@
 
 //! CTB
 #include <usart.h>
+#include <imu.h>
 #include <icm20948.h>
 
 //! IMC includes
@@ -20,18 +21,24 @@ static const char* hello_msg = "\x4e\x6f\x73\x79\x20\x62\x61\x73\x74\x61\x72\x64
 static Acceleration imc_accel;
 static AngularVelocity imc_angular_vel;
 
+static imu_t icm20948;
+
+
 int
 ctb_main(void)
 {
   uart_print(hello_msg, strlen(hello_msg));
+
+  // register ICM20948 imu
+  icm_register_device(&icm20948);
 
   imc_accel = Acceleration_new();
   imc_angular_vel = AngularVelocity_new();
 
   while(1)
   {
-    icm_get_accelerations(&imc_accel.x, &imc_accel.y, &imc_accel.z);
-    icm_get_angular_velocities(&imc_angular_vel.x, &imc_angular_vel.y, &imc_angular_vel.z);
+    icm20948.imu_get_accelerations(&imc_accel.x, &imc_accel.y, &imc_accel.z);
+    icm20948.imu_get_angular_velocities(&imc_angular_vel.x, &imc_angular_vel.y, &imc_angular_vel.z);
 
     // imc_accel.time = ...
     // imc_angular_vel = ...

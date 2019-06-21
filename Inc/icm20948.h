@@ -1,9 +1,14 @@
 #ifndef ICM20948_H_
 #define ICM20948_H_
 
+#include <string.h>
+#include <imu.h>
+
 void MX_SPI2_Init(void);
 
 // ICM-20948
+
+#define ICM_DEVICE_NAME                "icm20948"
 
 // USER BANK 0 REGISTER MAP
 // Should return 0xEA
@@ -158,19 +163,7 @@ void MX_SPI2_Init(void);
 #define GFS_1000DPS                     2
 #define GFS_2000DPS                     3
 
-//! Read this device's ID
-uint8_t icm_get_device_id(void);
-
-//! Initialize IMU's registers
-void icm_initialize(void);
-
-//! Read xyz accelerations in g's
-void icm_get_accelerations(double* ax, double* ay, double *az);
-
-//! Read xyz angular velocities deg/s
-void icm_get_angular_velocities(double* gx, double* gy, double *gz);
-
-//! Calibrate this device and acquire the bias
-void icm_calibrate(float * gyroBias, float * accelBias);
+void
+icm_register_device(imu_t* device);
 
 #endif /* ICM20948_H_ */

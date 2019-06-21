@@ -10,6 +10,12 @@ uint8_t gyro_scale = GFS_250DPS;
 #define SPI_SELECT() HAL_GPIO_WritePin(IMU_PORT, IMU_CS_Pin, GPIO_PIN_RESET)
 #define SPI_DESELECT() HAL_GPIO_WritePin(IMU_PORT, IMU_CS_Pin, GPIO_PIN_SET)
 
+static uint8_t icm_get_device_id(void);
+static void icm_initialize(void);
+static void icm_get_accelerations(double* ax, double* ay, double *az);
+static void icm_get_angular_velocities(double* gx, double* gy, double *gz);
+static void icm_calibrate(float * gyroBias, float * accelBias);
+
 SPI_HandleTypeDef hspi2;
 
 /* SPI2 init function */
@@ -34,6 +40,18 @@ void MX_SPI2_Init(void)
   {
     Error_Handler();
   }
+}
+
+void
+icm_register_device(imu_t* device)
+{
+  strcpy(device->device_name, ICM_DEVICE_NAME);
+
+  device->imu_get_device_id = icm_get_device_id;
+  device->imu_initialize = icm_initialize;
+  device->imu_get_accelerations = icm_get_accelerations;
+  device->imu_get_angular_velocities = icm_get_angular_velocities;
+  device->icm_calibrate = icm_calibrate;
 }
 
 static void write_byte(uint8_t reg, uint8_t Data) // ***
@@ -131,7 +149,8 @@ gyroscope_resolution(uint8_t gyro_scale)
   return gyro_res;
 }
 
-void icm_initialize(void)
+static void
+icm_initialize(void)
 {
     select_bank(USER_BANK_0);
     HAL_Delay(10);
@@ -200,7 +219,7 @@ void icm_initialize(void)
   write_byte(INT_ENABLE_1, 0x01);
 }
 
-void
+static void
 icm_get_accelerations(double* ax, double* ay, double* az)
 {
   select_bank(USER_BANK_0);
@@ -220,7 +239,7 @@ icm_get_accelerations(double* ax, double* ay, double* az)
   *az = (double)accel[2] * accel_res;
 }
 
-void
+static void
 icm_get_angular_velocities(double* gx, double* gy, double *gz)
 {
   select_bank(USER_BANK_0);
@@ -240,7 +259,8 @@ icm_get_angular_velocities(double* gx, double* gy, double *gz)
   *gz = (double)gyro[2] * gyro_res;
 }
 
-uint8_t icm_get_device_id(void)
+static uint8_t
+icm_get_device_id(void)
 {
   select_bank(USER_BANK_0);
   HAL_Delay(10);
@@ -250,7 +270,7 @@ uint8_t icm_get_device_id(void)
   return spiData;
 }
 
-void
+static void
 icm_calibrate(float * gyroBias, float * accelBias)
 {
   uint8_t data[12]; // data array to hold accelerometer and gyro x, y, z, data
