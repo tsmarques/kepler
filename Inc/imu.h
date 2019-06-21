@@ -1,6 +1,8 @@
 #ifndef __CTB__IMU_H__
 #define __CTB__IMU_H__
 
+#include <stdint.h>
+
 #include "../config.h"
 
 typedef struct imu_obj
