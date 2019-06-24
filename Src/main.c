@@ -19,15 +19,13 @@
 /* USER CODE END Header */
 
 /* Includes ------------------------------------------------------------------*/
-#include "main.h"
 
-/* Private includes ----------------------------------------------------------*/
-/* USER CODE BEGIN Includes */
-#include "dma.h"
-#include "sdmmc.h"
-#include "usart.h"
-#include "gpio.h"
-#include "icm20948.h"
+#include <main.h>
+#include <dma.h>
+#include <sdmmc.h>
+#include <usart.h>
+#include <gpio.h>
+#include <icm20948.h>
 
 void MX_SPI2_Init(void);
 
