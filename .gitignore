@@ -1,3 +1,4 @@
 build/*Src/imc-c
 build/
 gcc-arm-none-eabi-8-2018-q4-major/
+gcc-arm-none-eabi-8-2018-q4-major
