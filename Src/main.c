@@ -78,10 +78,8 @@ void SystemClock_Config(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-
   initialise_monitor_handles();
   /* USER CODE END 1 */
-
 
   /* MCU Configuration--------------------------------------------------------*/
 
@@ -104,7 +102,6 @@ int main(void)
   MX_DMA_Init();
   MX_SDMMC1_SD_Init();
   MX_SPI2_Init();
-  MX_UART4_Init();
   MX_UART7_Init();
   MX_UART8_Init();
   MX_UART5_Init();
