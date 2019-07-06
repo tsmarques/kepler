@@ -33,7 +33,7 @@ static imu_t icm20948;
 int
 kepler_main(void)
 {
-  uart_print(hello_msg, strlen(hello_msg));
+  printf("%s\n", hello_msg);
 
   // register ICM20948 imu
   icm_register_device(&icm20948);

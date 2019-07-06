@@ -94,7 +94,7 @@ add_definitions(
 )
 
 set(LDSCRIPT "${PROJECT_SOURCE_DIR}/STM32F767VITx_FLASH.ld")
-set(LIBS "-lc -lm -lnosys")
+set(LIBS "-lc -lm --specs=rdimon.specs")
 SET(LDFLAGS "${MCU} ${FPU} ${FLOAT-ABI} -T${LDSCRIPT} -specs=nano.specs ${LIBS} -Wl,-Map=${CMAKE_CURRENT_BINARY_DIR}/kepler.map,--cref -Wl,--gc-sections -u _printf_float -u _sprintf_float"
         CACHE INTERNAL "executable linker flags")
 
@@ -118,3 +118,17 @@ add_custom_command(TARGET kepler POST_BUILD
 # Size.
 add_custom_command(TARGET kepler POST_BUILD
         COMMAND arm-none-eabi-size kepler.elf)
+
+add_custom_target(kepler-flash
+        openocd
+        -f board/stm32f7discovery.cfg
+        -c init
+        -c targets
+        -c "arm semihosting enable"
+        -c "arm semihosting_fileio disable"
+        -c "reset init"
+        -c "flash write_image erase ${CMAKE_CURRENT_BINARY_DIR}/kepler.elf"
+        -c "verify_image ${CMAKE_CURRENT_BINARY_DIR}/kepler.elf"
+        -c "reset run"
+        DEPENDS kepler
+)

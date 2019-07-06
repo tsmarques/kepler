@@ -19,7 +19,6 @@
 /* USER CODE END Header */
 
 /* Includes ------------------------------------------------------------------*/
-
 #include <dma.h>
 #include <gpio.h>
 #include <icm20948.h>
@@ -27,7 +26,13 @@
 #include <main.h>
 #include <sdmmc.h>
 #include <usart.h>
+#include <main.h>
 
+/* Private includes ----------------------------------------------------------*/
+/* USER CODE BEGIN Includes */
+#include <stdio.h>
+
+extern void initialise_monitor_handles(void);
 void MX_SPI2_Init(void);
 
 /* USER CODE END Includes */
@@ -74,6 +79,7 @@ int main(void)
 {
   /* USER CODE BEGIN 1 */
 
+  initialise_monitor_handles();
   /* USER CODE END 1 */
 
 
