@@ -44,6 +44,10 @@ kepler_main(void)
   int running = 1;
   while(running)
   {
+    HAL_GPIO_TogglePin(LED_RED_GPIO_Port,  LED_RED_Pin);
+    HAL_GPIO_TogglePin(LED_GREEN_GPIO_Port,LED_GREEN_Pin);
+    HAL_GPIO_TogglePin(LED_BLUE_GPIO_Port, LED_BLUE_Pin);
+
     icm20948.get_accelerations(&imc_accel.x, &imc_accel.y, &imc_accel.z);
     icm20948.get_angular_velocities(&imc_angular_vel.x, &imc_angular_vel.y, &imc_angular_vel.z);
 
@@ -51,6 +55,7 @@ kepler_main(void)
     // imc_angular_vel = ...
 
     HAL_Delay(1000);
+    printf("tick\n");
   }
 
   return 0;

@@ -58,12 +58,6 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define LED_RED_Pin GPIO_PIN_1
-#define LED_RED_GPIO_Port GPIOA
-#define LED_GREEN_Pin GPIO_PIN_2
-#define LED_GREEN_GPIO_Port GPIOA
-#define LED_BLUE_Pin GPIO_PIN_3
-#define LED_BLUE_GPIO_Port GPIOA
 #define GPS_RX_Pin GPIO_PIN_7
 #define GPS_RX_GPIO_Port GPIOE
 #define GPS_TX_Pin GPIO_PIN_8
