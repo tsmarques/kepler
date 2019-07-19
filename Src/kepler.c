@@ -44,7 +44,6 @@ kepler_main(void)
   int running = 1;
   while(running)
   {
-    HAL_GPIO_TogglePin(LED_RED_GPIO_Port,  LED_RED_Pin);
     HAL_GPIO_TogglePin(LED_GREEN_GPIO_Port,LED_GREEN_Pin);
     HAL_GPIO_TogglePin(LED_BLUE_GPIO_Port, LED_BLUE_Pin);
 
