@@ -41,7 +41,8 @@ ctb_main(void)
   imc_accel = Acceleration_new();
   imc_angular_vel = AngularVelocity_new();
 
-  while(1)
+  int running = 1;
+  while(running)
   {
     icm20948.get_accelerations(&imc_accel.x, &imc_accel.y, &imc_accel.z);
     icm20948.get_angular_velocities(&imc_angular_vel.x, &imc_angular_vel.y, &imc_angular_vel.z);
@@ -51,4 +52,6 @@ ctb_main(void)
 
     HAL_Delay(1000);
   }
+
+  return 0;
 }
