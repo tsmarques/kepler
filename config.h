@@ -1,5 +1,5 @@
-#ifndef __CTB_CONFIG_H__
-#define __CTB_CONFIG_H__
+#ifndef __KEPLER_CONFIG_H__
+#define __KEPLER_CONFIG_H__
 
 #define IMU_DEVICE_NAME_SIZE                16
 #define IMU_PORT                            GPIOB

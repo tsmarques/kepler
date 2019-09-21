@@ -33,7 +33,7 @@ set(STM_HEADERS
 
 set(KEPLER_SOURCES
         startup_stm32f767xx.s
-        Src/ctb.c
+        Src/kepler.c
         Src/dma.c
         Src/gpio.c
         Src/icm20948.c

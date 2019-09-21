@@ -1,9 +1,9 @@
-#include <ctb.h>
+#include <kepler.h>
 
 //! HAL inclues
 #include <stm32f7xx_hal.h>
 
-//! CTB
+//! Kepler
 #include <usart.h>
 #include <imu.h>
 #include <icm20948.h>
@@ -31,7 +31,7 @@ static imu_t icm20948;
 
 
 int
-ctb_main(void)
+kepler_main(void)
 {
   uart_print(hello_msg, strlen(hello_msg));
 
