@@ -20,12 +20,13 @@
 
 /* Includes ------------------------------------------------------------------*/
 
-#include <main.h>
+#include <ctb.h>
 #include <dma.h>
-#include <sdmmc.h>
-#include <usart.h>
 #include <gpio.h>
 #include <icm20948.h>
+#include <main.h>
+#include <sdmmc.h>
+#include <usart.h>
 
 void MX_SPI2_Init(void);
 
@@ -106,12 +107,10 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  while (1)
-  {
-    /* USER CODE END WHILE */
+  ctb_main();
+  /* USER CODE END WHILE */
 
-    /* USER CODE BEGIN 3 */
-  }
+  /* USER CODE BEGIN 3 */
   /* USER CODE END 3 */
 }
 
