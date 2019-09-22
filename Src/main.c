@@ -103,6 +103,9 @@ int main(void)
   MX_UART7_Init();
   MX_UART8_Init();
   MX_UART5_Init();
+
+  HAL_GPIO_TogglePin(LED_GREEN_GPIO_Port,LED_GREEN_Pin);
+  HAL_GPIO_TogglePin(LED_BLUE_GPIO_Port, LED_BLUE_Pin);
   /* USER CODE BEGIN 2 */
   /* USER CODE END 2 */
 
