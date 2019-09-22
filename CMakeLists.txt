@@ -24,7 +24,11 @@ set(CMAKE_FIND_ROOT_PATH_MODE_PACKAGE ONLY)
 
 ### Souces and Headers
 
-set(KEPLER_HEADERS Inc)
+set(KEPLER_HEADERS
+        # This is a bit hacky but need it for config.h
+        ${PROJECT_SOURCE_DIR}
+        Inc)
+
 set(STM_HEADERS
         Drivers/STM32F7xx_HAL_Driver/Inc
         Drivers/STM32F7xx_HAL_Driver/Inc/Legacy
@@ -40,7 +44,9 @@ set(KEPLER_SOURCES
         Src/sdmmc.c
         Src/spi.c
         Src/usart.c
-        Src/main.c)
+        Src/main.c
+        Src/i2c.c
+        Src/mpl315a2.c)
 
 set(STM_SOURCES
         Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_cortex.c
@@ -65,6 +71,8 @@ set(STM_SOURCES
         Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_sd.c
         Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_spi.c
         Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_spi_ex.c
+        Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_i2c.c
+        Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_i2c_ex.c
         Src/stm32f7xx_hal_msp.c
         Src/stm32f7xx_it.c
         Src/system_stm32f7xx.c)

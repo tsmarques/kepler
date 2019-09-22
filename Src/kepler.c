@@ -7,6 +7,8 @@
 #include <usart.h>
 #include <imu.h>
 #include <icm20948.h>
+//! Altimeter
+#include <mpl315a2.h>
 
 //! IMC includes
 #include <imc-c/Acceleration.h>
@@ -55,6 +57,7 @@ kepler_main(void)
 
     HAL_Delay(1000);
     printf("tick\n");
+    printf("altimeters is on? : %s\r\n", mpl_is_on() ? "true" : "false");
   }
 
   return 0;
