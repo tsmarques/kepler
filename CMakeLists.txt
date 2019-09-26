@@ -27,55 +27,55 @@ set(CMAKE_FIND_ROOT_PATH_MODE_PACKAGE ONLY)
 set(KEPLER_HEADERS
         # This is a bit hacky but need it for config.h
         ${PROJECT_SOURCE_DIR}
-        Inc)
+        inc)
 
 set(STM_HEADERS
-        Drivers/STM32F7xx_HAL_Driver/Inc
-        Drivers/STM32F7xx_HAL_Driver/Inc/Legacy
-        Drivers/CMSIS/Device/ST/STM32F7xx/Include
-        Drivers/CMSIS/Include)
+        drivers/STM32F7xx_HAL_Driver/Inc
+        drivers/STM32F7xx_HAL_Driver/Inc/Legacy
+        drivers/CMSIS/Device/ST/STM32F7xx/Include
+        drivers/CMSIS/Include)
 
 set(KEPLER_SOURCES
         startup_stm32f767xx.s
-        Src/kepler.c
-        Src/dma.c
-        Src/gpio.c
-        Src/icm20948.c
-        Src/sdmmc.c
-        Src/spi.c
-        Src/usart.c
-        Src/main.c
-        Src/i2c.c
-        Src/mpl315a2.c)
+        src/kepler.c
+        src/dma.c
+        src/gpio.c
+        src/icm20948.c
+        src/sdmmc.c
+        src/spi.c
+        src/usart.c
+        src/main.c
+        src/i2c.c
+        src/mpl315a2.c)
 
 set(STM_SOURCES
-        Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_cortex.c
-        Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_tim.c
-        Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_tim_ex.c
-        Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_rcc.c
-        Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_rcc_ex.c
-        Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_flash.c
-        Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_flash_ex.c
-        Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_gpio.c
-        Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma.c
-        Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c
-        Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_pwr.c
-        Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_pwr_ex.c
-        Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal.c
-        Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_i2c.c
-        Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_i2c_ex.c
-        Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_uart.c
-        Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_uart_ex.c
-        Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_exti.c
-        Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_ll_sdmmc.c
-        Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_sd.c
-        Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_spi.c
-        Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_spi_ex.c
-        Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_i2c.c
-        Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_i2c_ex.c
-        Src/stm32f7xx_hal_msp.c
-        Src/stm32f7xx_it.c
-        Src/system_stm32f7xx.c)
+        drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_cortex.c
+        drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_tim.c
+        drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_tim_ex.c
+        drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_rcc.c
+        drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_rcc_ex.c
+        drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_flash.c
+        drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_flash_ex.c
+        drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_gpio.c
+        drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma.c
+        drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c
+        drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_pwr.c
+        drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_pwr_ex.c
+        drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal.c
+        drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_i2c.c
+        drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_i2c_ex.c
+        drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_uart.c
+        drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_uart_ex.c
+        drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_exti.c
+        drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_ll_sdmmc.c
+        drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_sd.c
+        drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_spi.c
+        drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_spi_ex.c
+        drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_i2c.c
+        drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_i2c_ex.c
+        src/stm32f7xx_hal_msp.c
+        src/stm32f7xx_it.c
+        src/system_stm32f7xx.c)
 
 ### Flags, Options and Linker
 
