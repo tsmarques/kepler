@@ -1,15 +1,10 @@
-cmake_minimum_required(VERSION 3.15)
-project(kepler)
-
-enable_language(C ASM)
+include(CMakeForceCompiler)
 
 set(CMAKE_SYSTEM_NAME Generic)
 set(CMAKE_SYSTEM_PROCESSOR ARM)
+SET(CMAKE_CROSSCOMPILING 1)
 
 set(TOOLCHAIN_PREFIX arm-none-eabi)
-
-# https://cmake.org/pipermail/cmake-developers/2016-February/027871.html
-set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
 
 set(CMAKE_C_COMPILER   ${TOOLCHAIN_PREFIX}-gcc)
 set(CMAKE_CXX_COMPILER ${TOOLCHAIN_PREFIX}-g++)
@@ -17,10 +12,11 @@ set(CMAKE_ASM_COMPILER ${CMAKE_C_COMPILER})
 set(CMAKE_OBJCOPY      ${TOOLCHAIN_PREFIX}-objcopy CACHE INTERNAL "objcopy tool")
 set(CMAKE_SIZE_UTIL    ${TOOLCHAIN_PREFIX}-size CACHE INTERNAL "size tool")
 
-set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
-set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
-set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
-set(CMAKE_FIND_ROOT_PATH_MODE_PACKAGE ONLY)
+cmake_minimum_required(VERSION 3.15)
+project(kepler)
+
+enable_language(C ASM)
+
 
 ### Souces and Headers
 
@@ -102,8 +98,8 @@ add_definitions(
 )
 
 set(LDSCRIPT "${PROJECT_SOURCE_DIR}/STM32F767VITx_FLASH.ld")
-set(LIBS "-lc -lm --specs=rdimon.specs")
-SET(LDFLAGS "${MCU} ${FPU} ${FLOAT-ABI} -T${LDSCRIPT} -specs=nano.specs ${LIBS} -Wl,-Map=${CMAKE_CURRENT_BINARY_DIR}/kepler.map,--cref -Wl,--gc-sections -u _printf_float -u _sprintf_float"
+set(LIBS "--specs=rdimon.specs --specs=nano.specs -lgcc -lc -lm -lrdimon")
+SET(LDFLAGS "--specs=nosys.specs ${MCU} ${FPU} ${FLOAT-ABI} -T${LDSCRIPT} ${LIBS} -Wl,-Map=${CMAKE_CURRENT_BINARY_DIR}/kepler.map,--cref -Wl,--gc-sections -u _printf_float -u _sprintf_float"
         CACHE INTERNAL "executable linker flags")
 
 ### Targets
