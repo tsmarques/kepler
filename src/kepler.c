@@ -17,6 +17,7 @@
 #include <imc-c/Heartbeat.h>
 #include <imc-c/GpsFix.h>
 #include <imc-c/AngularVelocity.h>
+#include <imc-c/Pressure.h>
 
 static const char* hello_msg =
  "\x4e\x6f\x73\x79\x20\x62\x61\x73\x74\x61\x72\x64"
@@ -27,6 +28,9 @@ static Acceleration imc_accel;
 
 //! IMC angular velocities' message
 static AngularVelocity imc_angular_vel;
+
+//! IMC pressure message
+static Pressure imc_pressure;
 
 //! ICM20938 imu device
 static imu_t icm20948;
@@ -42,8 +46,10 @@ kepler_main(void)
 
   imc_accel = Acceleration_new();
   imc_angular_vel = AngularVelocity_new();
+  imc_pressure = Pressure_new();
 
   int running = 1;
+  mpl_init();
   while(running)
   {
     HAL_GPIO_TogglePin(LED_GREEN_GPIO_Port,LED_GREEN_Pin);
@@ -51,13 +57,17 @@ kepler_main(void)
 
     icm20948.get_accelerations(&imc_accel.x, &imc_accel.y, &imc_accel.z);
     icm20948.get_angular_velocities(&imc_angular_vel.x, &imc_angular_vel.y, &imc_angular_vel.z);
+    imc_pressure.value = mpl_read_pressure() * 0.01;
 
     // imc_accel.time = ...
     // imc_angular_vel = ...
+    if (!mpl_is_on())
+      continue;
 
-    HAL_Delay(1000);
-    printf("tick\n");
-    printf("altimeters is on? : %s\r\n", mpl_is_on() ? "true" : "false");
+    printf("alt: %f\r\n", mpl_read_altitude());
+    printf("press: %f\r\n", mpl_read_pressure());
+    printf("temp: %f\r\n", mpl_read_temperature());
+    HAL_Delay(100);
   }
 
   return 0;
