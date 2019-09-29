@@ -90,11 +90,13 @@ set_oversample(uint8_t byte)
 
 //! TODO Make it non-blocking
 void
-wait_data(uint8_t event_flag)
+wait_data(uint8_t event_flag, uint16_t timeout_ms)
 {
   uint8_t status;
   read_bytes(REG_STATUS, &status, 1);
-  while ((status & event_flag) == 0)
+
+  uint32_t start_t = HAL_GetTick();
+  while ((status & event_flag) == 0 && (HAL_GetTick() - start_t < timeout_ms))
     read_bytes(REG_STATUS, &status, 1);
 }
 
@@ -119,7 +121,7 @@ float
 mpl_read_pressure()
 {
   set_barometer_mode();
-  wait_data(REG_STATUS_BIT_PDR);
+  wait_data(REG_STATUS_BIT_PDR, 200);
 
   uint8_t pbyte[3] = {0x00};
   read_bytes(OUT_P_MSB, pbyte, 3);
@@ -132,7 +134,7 @@ float
 mpl_read_altitude()
 {
   set_altimeter_mode();
-  wait_data(REG_STATUS_BIT_PDR);
+  wait_data(REG_STATUS_BIT_PDR, 200);
 
   uint8_t altitude_bytes[3] = {0x00};
   read_bytes(OUT_P_MSB, altitude_bytes, 3);
@@ -146,7 +148,7 @@ mpl_read_altitude()
 float
 mpl_read_temperature(void)
 {
-  wait_data(REG_STATUS_BIT_TDR);
+  wait_data(REG_STATUS_BIT_TDR, 200);
 
   uint8_t temperature[2] = {0x00};
   read_bytes(OUT_T_MSB, temperature,2);
