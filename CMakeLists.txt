@@ -125,7 +125,7 @@ add_custom_command(TARGET kepler POST_BUILD
 
 add_custom_target(kepler-flash
         openocd
-        -f board/stm32f7discovery.cfg
+        -f ${PROJECT_SOURCE_DIR}/scripts/kepler.cfg
         -c init
         -c targets
         -c "arm semihosting enable"
