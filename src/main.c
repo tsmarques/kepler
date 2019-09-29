@@ -101,6 +101,8 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  HAL_GPIO_WritePin(LED_BLUE_GPIO_Port, LED_BLUE_Pin, GPIO_PIN_SET);
+
   MX_SPI2_Init();
   MX_UART7_Init();
   MX_UART8_Init();
