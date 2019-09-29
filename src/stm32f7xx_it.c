@@ -20,6 +20,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include <config.h>
 #include "stm32f7xx_it.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -61,7 +62,7 @@ extern UART_HandleTypeDef huart1;
 extern DMA_HandleTypeDef hdma_sdmmc1_rx;
 extern DMA_HandleTypeDef hdma_sdmmc1_tx;
 extern SD_HandleTypeDef hsd1;
-extern SPI_HandleTypeDef hspi2;
+extern SPI_HandleTypeDef IMU_SPI_HANDLE;
 extern UART_HandleTypeDef huart5;
 extern UART_HandleTypeDef huart7;
 extern UART_HandleTypeDef huart8;
@@ -208,16 +209,16 @@ void SysTick_Handler(void)
 /**
   * @brief This function handles SPI2 global interrupt.
   */
-void SPI2_IRQHandler(void)
-{
-  /* USER CODE BEGIN SPI2_IRQn 0 */
-
-  /* USER CODE END SPI2_IRQn 0 */
-  HAL_SPI_IRQHandler(&hspi2);
-  /* USER CODE BEGIN SPI2_IRQn 1 */
-
-  /* USER CODE END SPI2_IRQn 1 */
-}
+//void SPI2_IRQHandler(void)
+//{
+//  /* USER CODE BEGIN SPI2_IRQn 0 */
+//
+//  /* USER CODE END SPI2_IRQn 0 */
+//  HAL_SPI_IRQHandler(&IMU_SPI_HANDLE);
+//  /* USER CODE BEGIN SPI2_IRQn 1 */
+//
+//  /* USER CODE END SPI2_IRQn 1 */
+//}
 
 /**
   * @brief This function handles SDMMC1 global interrupt.

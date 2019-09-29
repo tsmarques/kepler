@@ -38,6 +38,9 @@
 
 //! IMU
 #define IMU_DEVICE_NAME_SIZE                16
+#define IMU_SPI_DEVICE                      SPI2
+#define IMU_PORT_POWER                      GPIOD
+#define IMU_PIN_POWER                       GPIO_PIN_8
 #define IMU_PORT                            GPIOB
 #define IMU_CLK_Pin                         GPIO_PIN_13
 #define IMU_MISO_Pin                        GPIO_PIN_14
@@ -45,6 +48,11 @@
 #define IMU_CS_PORT                         GPIOB
 #define IMU_CS_Pin                          GPIO_PIN_12
 #define IMU_DEFAULT_SAMPLES_PER_S           (1)
+#define IMU_RCC_ENABLE __HAL_RCC_SPI2_CLK_ENABLE
+#define IMU_GPIO_CLOCK_ENABLE               __HAL_RCC_GPIOB_CLK_ENABLE
+#define IMU_IRQN                            SPI2_IRQn
+#define IMU_RCC_DISABLE                     __HAL_RCC_SPI2_CLK_DISABLE
+#define IMU_SPI_HANDLE                      hspi2
 
 
 //! EEPROM
@@ -99,7 +107,7 @@
 
 //! LED's
 #define LED_RED_Pin                         GPIO_PIN_1
-#define LED_RED_GPIO_Port                  GPIOA
+#define LED_RED_GPIO_Port                   GPIOA
 #define LED_BLUE_GPIO_Port                  GPIOA
 #define LED_GREEN_Pin                       GPIO_PIN_3
 #define LED_GREEN_GPIO_Port                 GPIOA
@@ -126,6 +134,5 @@
 
 
 #endif
-
 
 #endif

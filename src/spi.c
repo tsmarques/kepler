@@ -17,77 +17,44 @@
   ******************************************************************************
   */
 
-/* Includes ------------------------------------------------------------------*/
 #include "spi.h"
 
-/* USER CODE BEGIN 0 */
-
-/* USER CODE END 0 */
+#include <config.h>
 
 void HAL_SPI_MspInit(SPI_HandleTypeDef* spiHandle)
 {
 
   GPIO_InitTypeDef GPIO_InitStruct = {0};
-  if(spiHandle->Instance==SPI2)
+  if(spiHandle->Instance == IMU_SPI_DEVICE)
   {
-  /* USER CODE BEGIN SPI2_MspInit 0 */
+    IMU_RCC_ENABLE();
+    IMU_GPIO_CLOCK_ENABLE();
 
-  /* USER CODE END SPI2_MspInit 0 */
-    /* SPI2 clock enable */
-    __HAL_RCC_SPI2_CLK_ENABLE();
-  
-    __HAL_RCC_GPIOB_CLK_ENABLE();
-    /**SPI2 GPIO Configuration    
-    PB12     ------> SPI2_NSS
-    PB13     ------> SPI2_SCK
-    PB14     ------> SPI2_MISO
-    PB15     ------> SPI2_MOSI 
-    */
-    GPIO_InitStruct.Pin = GPIO_PIN_12|IMU_SCK_Pin|IMU_MISO_Pin|IMU_MOSI_Pin;
+    GPIO_InitStruct.Pin = IMU_CLK_Pin | IMU_MISO_Pin | IMU_MOSI_Pin;
     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
     GPIO_InitStruct.Pull = GPIO_NOPULL;
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
     GPIO_InitStruct.Alternate = GPIO_AF5_SPI2;
-    HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+    HAL_GPIO_Init(IMU_PORT, &GPIO_InitStruct);
+    HAL_Delay(2);
 
-    /* SPI2 interrupt Init */
-    HAL_NVIC_SetPriority(SPI2_IRQn, 0, 0);
-    HAL_NVIC_EnableIRQ(SPI2_IRQn);
-  /* USER CODE BEGIN SPI2_MspInit 1 */
+    GPIO_InitStruct.Pin = IMU_CS_Pin;
+    GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+    HAL_GPIO_Init(IMU_CS_PORT, &GPIO_InitStruct);
+    HAL_Delay(2);
 
-  /* USER CODE END SPI2_MspInit 1 */
+//    HAL_NVIC_SetPriority(IMU_IRQN, 0, 0);
+//    HAL_NVIC_EnableIRQ(IMU_IRQN);
   }
 }
 
 void HAL_SPI_MspDeInit(SPI_HandleTypeDef* spiHandle)
 {
 
-  if(spiHandle->Instance==SPI2)
+  if(spiHandle->Instance == IMU_SPI_DEVICE)
   {
-  /* USER CODE BEGIN SPI2_MspDeInit 0 */
-
-  /* USER CODE END SPI2_MspDeInit 0 */
-    /* Peripheral clock disable */
-    __HAL_RCC_SPI2_CLK_DISABLE();
-  
-    /**SPI2 GPIO Configuration    
-    PB12     ------> SPI2_NSS
-    PB13     ------> SPI2_SCK
-    PB14     ------> SPI2_MISO
-    PB15     ------> SPI2_MOSI 
-    */
-    HAL_GPIO_DeInit(GPIOB, GPIO_PIN_12|IMU_SCK_Pin|IMU_MISO_Pin|IMU_MOSI_Pin);
-
-    /* SPI2 interrupt Deinit */
-    HAL_NVIC_DisableIRQ(SPI2_IRQn);
-  /* USER CODE BEGIN SPI2_MspDeInit 1 */
-
-  /* USER CODE END SPI2_MspDeInit 1 */
+    IMU_RCC_DISABLE();
+    HAL_GPIO_DeInit(IMU_PORT, IMU_CS_Pin | IMU_CLK_Pin | IMU_MISO_Pin | IMU_MOSI_Pin);
+    HAL_NVIC_DisableIRQ(IMU_IRQN);
   }
-} 
-
-/* USER CODE BEGIN 1 */
-
-/* USER CODE END 1 */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+}

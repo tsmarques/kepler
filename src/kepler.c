@@ -43,6 +43,7 @@ kepler_main(void)
 
   // register ICM20948 imu
   icm_register_device(&icm20948);
+  icm20948.initialize();
 
   imc_accel = Acceleration_new();
   imc_angular_vel = AngularVelocity_new();
