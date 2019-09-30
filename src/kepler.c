@@ -60,16 +60,16 @@ kepler_main(void)
 
     icm20948.get_accelerations(&imc_accel.x, &imc_accel.y, &imc_accel.z);
     icm20948.get_angular_velocities(&imc_angular_vel.x, &imc_angular_vel.y, &imc_angular_vel.z);
-    imc_pressure.value = mpl_read_pressure() * 0.01;
+    printf("ax %f ; ay %f ; az %f\r\n", imc_accel.x, imc_accel.y, imc_accel.z);
 
-    // imc_accel.time = ...
-    // imc_angular_vel = ...
-    if (!mpl_is_on())
-      continue;
+    if (mpl_is_on())
+    {
+      imc_pressure.value = mpl_read_pressure() * 0.01;
+      printf("alt: %f\r\n", mpl_read_altitude());
+      printf("press: %f\r\n", mpl_read_pressure());
+      printf("temp: %f\r\n", mpl_read_temperature());
+    }
 
-    printf("alt: %f\r\n", mpl_read_altitude());
-    printf("press: %f\r\n", mpl_read_pressure());
-    printf("temp: %f\r\n", mpl_read_temperature());
     HAL_Delay(100);
   }
 
