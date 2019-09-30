@@ -42,7 +42,14 @@ set(KEPLER_SOURCES
         src/usart.c
         src/main.c
         src/i2c.c
-        src/mpl315a2.c)
+        src/mpl315a2.c
+        src/sdcard/bsp_driver_sd.c
+        src/sdcard/diskio.c
+        src/sdcard/fatfs.c
+        src/sdcard/ff.c
+        src/sdcard/ff_gen_drv.c
+        src/sdcard/sd_diskio.c
+        )
 
 set(STM_SOURCES
         drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_cortex.c
