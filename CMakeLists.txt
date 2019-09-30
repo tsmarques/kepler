@@ -34,7 +34,6 @@ set(STM_HEADERS
 set(KEPLER_SOURCES
         startup_stm32f767xx.s
         src/kepler.c
-        src/dma.c
         src/gpio.c
         src/icm20948.c
         src/sdmmc.c
@@ -49,6 +48,7 @@ set(KEPLER_SOURCES
         src/sdcard/ff.c
         src/sdcard/ff_gen_drv.c
         src/sdcard/sd_diskio.c
+        src/log.c
         )
 
 set(STM_SOURCES

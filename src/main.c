@@ -19,7 +19,6 @@
 /* USER CODE END Header */
 
 /* Includes ------------------------------------------------------------------*/
-#include <dma.h>
 #include <gpio.h>
 #include <icm20948.h>
 #include <kepler.h>

@@ -125,13 +125,8 @@
 //! Altimeter's I2C Slave Address
 #define MPL_I2C_ADDR                        0x60
 
-//! Storage Type to use
-#define STORAGE_TYPE         STORAGE_TYPE_SDCARD
-//! Use an SDCARD for storage
-#define STORAGE_TYPE_SDCARD  0
-//! Use internal flash for storage
-#define STORAGE_TYPE_FLASH   1
-
+//! How many bytes to accumulate before writing to disk
+#define LOG_CACHE_CAPACITY                  1024
 
 #endif
 
