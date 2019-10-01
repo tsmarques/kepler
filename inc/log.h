@@ -7,7 +7,7 @@
 void MX_DMA_Init(void);
 
 //! Initialize peripheral
-void
+bool
 log_init(void);
 
 //! Check if there's an open log

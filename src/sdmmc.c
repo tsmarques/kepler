@@ -18,7 +18,8 @@
   */
 
 /* Includes ------------------------------------------------------------------*/
-#include "sdmmc.h"
+#include <sdmmc.h>
+#include <config.h>
 
 /* USER CODE BEGIN 0 */
 
@@ -62,24 +63,24 @@ void HAL_SD_MspInit(SD_HandleTypeDef* sdHandle)
   /* USER CODE END SDMMC1_MspInit 0 */
     /* SDMMC1 clock enable */
     __HAL_RCC_SDMMC1_CLK_ENABLE();
-  
+
     __HAL_RCC_GPIOC_CLK_ENABLE();
     __HAL_RCC_GPIOD_CLK_ENABLE();
-    /**SDMMC1 GPIO Configuration    
+    /**SDMMC1 GPIO Configuration
     PC8     ------> SDMMC1_D0
     PC9     ------> SDMMC1_D1
     PC10     ------> SDMMC1_D2
     PC11     ------> SDMMC1_D3
     PC12     ------> SDMMC1_CK
-    PD2     ------> SDMMC1_CMD 
+    PD2     ------> SDMMC1_CMD
     */
-    GPIO_InitStruct.Pin = SDCARD_D0_Pin|SDCARD_D1_Pin|SDCARD_D2_Pin|SDCARD_D3_Pin 
+    GPIO_InitStruct.Pin = SDCARD_D0_Pin|SDCARD_D1_Pin|SDCARD_D2_Pin|SDCARD_D3_Pin
                           |SDCARD_CK_Pin;
     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
     GPIO_InitStruct.Pull = GPIO_NOPULL;
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
     GPIO_InitStruct.Alternate = GPIO_AF12_SDMMC1;
-    HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+    HAL_GPIO_Init(SDCARD_GPIO, &GPIO_InitStruct);
 
     GPIO_InitStruct.Pin = SDCARD_CMD_Pin;
     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
@@ -150,16 +151,16 @@ void HAL_SD_MspDeInit(SD_HandleTypeDef* sdHandle)
   /* USER CODE END SDMMC1_MspDeInit 0 */
     /* Peripheral clock disable */
     __HAL_RCC_SDMMC1_CLK_DISABLE();
-  
-    /**SDMMC1 GPIO Configuration    
+
+    /**SDMMC1 GPIO Configuration
     PC8     ------> SDMMC1_D0
     PC9     ------> SDMMC1_D1
     PC10     ------> SDMMC1_D2
     PC11     ------> SDMMC1_D3
     PC12     ------> SDMMC1_CK
-    PD2     ------> SDMMC1_CMD 
+    PD2     ------> SDMMC1_CMD
     */
-    HAL_GPIO_DeInit(GPIOC, SDCARD_D0_Pin|SDCARD_D1_Pin|SDCARD_D2_Pin|SDCARD_D3_Pin 
+    HAL_GPIO_DeInit(GPIOC, SDCARD_D0_Pin|SDCARD_D1_Pin|SDCARD_D2_Pin|SDCARD_D3_Pin
                           |SDCARD_CK_Pin);
 
     HAL_GPIO_DeInit(SDCARD_CMD_GPIO_Port, SDCARD_CMD_Pin);
@@ -174,7 +175,7 @@ void HAL_SD_MspDeInit(SD_HandleTypeDef* sdHandle)
 
   /* USER CODE END SDMMC1_MspDeInit 1 */
   }
-} 
+}
 
 /* USER CODE BEGIN 1 */
 

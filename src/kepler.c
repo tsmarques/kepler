@@ -47,7 +47,10 @@ kepler_main(void)
 {
   printf("%s\n", hello_msg);
 
-  log_init();
+  // TODO handle error case
+  if (!log_init())
+    printf ("failed to mount disk");
+
   // register ICM20948 imu
   icm_register_device(&icm20948);
   icm20948.initialize();

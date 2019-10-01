@@ -9,13 +9,6 @@
 #include <stm32f7xx_hal.h>
 #include <string.h>
 
-//! SDMMC handler
-SD_HandleTypeDef hsd1;
-//! SDMMC's DMA RX Handler
-DMA_HandleTypeDef hdma_sdmmc1_rx;
-//! SDMMC's DMA TX Handler
-DMA_HandleTypeDef hdma_sdmmc1_tx;
-
 // File system
 static FATFS fs_obj;
 //! Current cache size
@@ -32,15 +25,14 @@ FIL log_fd;
 void MX_DMA_Init(void)
 {
   /* DMA controller clock enable */
-  __HAL_RCC_DMA2_CLK_ENABLE();
+  SDCARD_DMA_RCC_ENABLE();
 
   /* DMA interrupt init */
-  /* DMA2_Stream3_IRQn interrupt configuration */
-  HAL_NVIC_SetPriority(DMA2_Stream3_IRQn, 0, 0);
-  HAL_NVIC_EnableIRQ(DMA2_Stream3_IRQn);
-  /* DMA2_Stream6_IRQn interrupt configuration */
-  HAL_NVIC_SetPriority(DMA2_Stream6_IRQn, 0, 0);
-  HAL_NVIC_EnableIRQ(DMA2_Stream6_IRQn);
+  HAL_NVIC_SetPriority(SDCARD_DMA_STREAM_X, 0, 0);
+  HAL_NVIC_EnableIRQ(SDCARD_DMA_STREAM_X);
+
+  HAL_NVIC_SetPriority(SDCARD_DMA_STREAM_Y, 0, 0);
+  HAL_NVIC_EnableIRQ(SDCARD_DMA_STREAM_Y);
 }
 
 FRESULT do_write(const uint8_t* bfr, uint16_t size)
@@ -54,11 +46,13 @@ FRESULT do_write(const uint8_t* bfr, uint16_t size)
   return ret;
 }
 
-void log_init(void)
+bool
+log_init(void)
 {
   MX_DMA_Init();
   MX_SDMMC1_SD_Init();
   MX_FATFS_Init();
+  return f_mount(&fs_obj, "", 1) == FR_OK;
 }
 
 // TODO create log with proper names
