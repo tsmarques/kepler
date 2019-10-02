@@ -6,6 +6,10 @@
 
 void MX_DMA_Init(void);
 
+//! Current log size
+uint16_t
+log_size();
+
 //! Initialize peripheral
 bool
 log_init(void);

@@ -101,6 +101,16 @@ kepler_main(void)
     log_write(bfr_work, serialization_size);
     bfr_work[0] = 0;
 
+    if (log_size() >= SDCARD_LOG_SIZE)
+    {
+      printf("log rotation\r\n");
+      if (!log_close())
+        printf("failed to close\r\n");
+
+      if (!log_open())
+        printf("failed to rotate log\r\n");
+    }
+
     HAL_Delay(100);
   }
 

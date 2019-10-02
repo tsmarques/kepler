@@ -76,6 +76,8 @@
 #define SDCARD_CMD_GPIO_Port                GPIOD
 #define SDCARD_PORT_POWER                   (GPIOD)
 #define SDCARD_PIN_POWER                    (GPIO_PIN_0)
+//! Log rotation size in KiB
+#define SDCARD_LOG_SIZE                     10240
 
 //! SWITCH HALL
 #define PORT_SWITCH_HAL                     (GPIOE)
