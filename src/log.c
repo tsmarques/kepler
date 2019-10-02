@@ -5,6 +5,8 @@
 #include <sdcard/ff.h>
 #include <sdmmc.h>
 
+#include <imc-c/LoggingControl.h>
+
 //! HAL includes
 #include <stdio.h>
 #include <stm32f7xx_hal.h>
@@ -29,6 +31,10 @@ bool log_is_open = false;
 
 //! Currently open log
 FIL log_fd;
+
+//! IMC Log control
+LoggingControl imc_logc;
+
 
 /**
   * Enable DMA controller clock
@@ -64,6 +70,21 @@ FRESULT do_write(const uint8_t* bfr, uint16_t size)
   return ret;
 }
 
+// Register, using IMC, a log operation
+static void
+logcontrol_toggle(bool starting)
+{
+  if (starting)
+    imc_logc.op = COP_REQUEST_START;
+  else
+    imc_logc.op = COP_REQUEST_STOP;
+
+  size_t serialization_size = LoggingControl_serialization_size(&imc_logc);
+  LoggingControl_serialize(&imc_logc, bfr_log);
+  cache_curr_size = serialization_size;
+  log_total_size = serialization_size;
+}
+
 bool
 log_init(void)
 {
@@ -73,6 +94,8 @@ log_init(void)
   HAL_Delay(10);
   MX_FATFS_Init();
   HAL_Delay(10);
+
+  imc_logc = LoggingControl_new();
   return f_mount(&fs_obj, "", 1) == FR_OK;
 }
 
@@ -92,7 +115,11 @@ log_open()
   if (log_is_open)
     return false;
 
-  sprintf(log_name, "%d-kepler.lsf", log_number);
+  imc_logc.name[0] = 0;
+
+  unsigned n = sprintf(&imc_logc.name[0], "l%d", log_number);
+  strncat(&log_name[0], &imc_logc.name[0], n);
+  strcat(log_name, ".lsf");
   FRESULT res = f_open(&log_fd, log_name, FA_CREATE_ALWAYS | FA_WRITE);
 
   if (res != FR_OK)
@@ -105,6 +132,8 @@ log_open()
   cache_curr_size = 0;
   bfr_log[0] = 0;
   log_is_open = true;
+
+  logcontrol_toggle(true);
 
   return true;
 }
@@ -152,5 +181,7 @@ log_close()
   log_is_open = false;
   ++log_number;
   log_name[0] = 0;
+  imc_logc.name[0] = 0;
+
   return f_close(&log_fd) == FR_OK;
 }
