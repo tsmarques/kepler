@@ -59,8 +59,11 @@ bool
 log_init(void)
 {
   MX_DMA_Init();
+  HAL_Delay(10);
   MX_SDMMC1_SD_Init();
+  HAL_Delay(10);
   MX_FATFS_Init();
+  HAL_Delay(10);
   return f_mount(&fs_obj, "", 1) == FR_OK;
 }
 
