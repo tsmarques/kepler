@@ -49,7 +49,8 @@ kepler_main(void)
 
   // TODO handle error case
   if (!log_init())
-    printf ("failed to mount disk");
+    printf ("failed to mount disk\r\n");
+
   if (!log_open())
     printf("failed to open log\r\n");
 
