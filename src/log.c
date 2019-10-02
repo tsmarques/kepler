@@ -118,6 +118,8 @@ log_close()
 {
   if (!log_is_open)
     return false;
+
+  do_write(bfr_log, log_curr_size);
   log_is_open = false;
   return f_close(&log_fd) == FR_OK;
 }
