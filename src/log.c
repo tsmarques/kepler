@@ -16,6 +16,8 @@ static uint16_t log_curr_size = 0;
 //! Log cache buffer
 static uint8_t bfr_log[LOG_CACHE_CAPACITY];
 
+bool log_is_open = false;
+
 //! Currently open log
 FIL log_fd;
 
@@ -37,6 +39,12 @@ void MX_DMA_Init(void)
 
 FRESULT do_write(const uint8_t* bfr, uint16_t size)
 {
+  if (bfr == NULL)
+    return false;
+
+  if (size == 0)
+    return true;
+
   FRESULT ret;
   unsigned cursor;
   do
@@ -60,6 +68,9 @@ log_init(void)
 bool
 log_open()
 {
+  if (log_is_open)
+    return false;
+
   FRESULT res = f_open(&log_fd, "log.lsf", FA_CREATE_ALWAYS | FA_WRITE);
 
   if (res != FR_OK)
@@ -67,6 +78,7 @@ log_open()
 
   log_curr_size = 0;
   bfr_log[0] = 0;
+  log_is_open = true;
 
   return true;
 }
@@ -74,6 +86,9 @@ log_open()
 bool
 log_write(uint8_t* imc_bytes, uint16_t size)
 {
+  if (!log_is_open)
+    return false;
+
   uint8_t* __ptr = imc_bytes;
   // cache is/will be full, then write to disk
   if (log_curr_size + size > LOG_CACHE_CAPACITY)
@@ -101,5 +116,8 @@ log_write(uint8_t* imc_bytes, uint16_t size)
 bool
 log_close()
 {
+  if (!log_is_open)
+    return false;
+  log_is_open = false;
   return f_close(&log_fd) == FR_OK;
 }
