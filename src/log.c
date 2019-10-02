@@ -39,7 +39,8 @@ FRESULT do_write(const uint8_t* bfr, uint16_t size)
 {
   FRESULT ret;
   unsigned cursor;
-  do {
+  do
+  {
     ret = f_write(&log_fd, bfr, size, &cursor);
   } while(ret == FR_OK && cursor < size);
 
@@ -82,6 +83,7 @@ log_write(uint8_t* imc_bytes, uint16_t size)
     if (do_write(bfr_log, LOG_CACHE_CAPACITY) != FR_OK)
       return false;
 
+    log_curr_size = 0;
     __ptr += diff;
     size -= diff;
   }
@@ -91,6 +93,7 @@ log_write(uint8_t* imc_bytes, uint16_t size)
 
   // cache data
   memcpy(&bfr_log[log_curr_size], &__ptr, size);
+  log_curr_size += size;
 
   return true;
 }
