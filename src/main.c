@@ -30,6 +30,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include <inc/log.h>
 #include <stdio.h>
 
 extern void initialise_monitor_handles(void);
@@ -108,6 +109,9 @@ int main(void)
   MX_UART5_Init();
   /* USER CODE BEGIN 2 */
   MX_I2C4_Init();
+  MX_DMA_Init();
+  HAL_Delay(10);
+  MX_SDMMC1_SD_Init();
   /* USER CODE END 2 */
 
   /* Infinite loop */

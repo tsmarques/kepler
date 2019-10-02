@@ -88,10 +88,6 @@ logcontrol_toggle(bool starting)
 bool
 log_init(void)
 {
-  MX_DMA_Init();
-  HAL_Delay(10);
-  MX_SDMMC1_SD_Init();
-  HAL_Delay(10);
   MX_FATFS_Init();
   HAL_Delay(10);
 
