@@ -74,7 +74,7 @@ log_open()
   if (log_is_open)
     return false;
 
-  FRESULT res = f_open(&log_fd, "log.lsf", FA_CREATE_ALWAYS | FA_WRITE);
+  FRESULT res = f_open(&log_fd, "kepler.lsf", FA_CREATE_ALWAYS | FA_WRITE);
 
   if (res != FR_OK)
     return false;
