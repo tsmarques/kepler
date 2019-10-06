@@ -112,12 +112,14 @@ kepler_main(void)
 
     if (log_size() >= SDCARD_LOG_SIZE)
     {
+      HAL_GPIO_WritePin(LED_BLUE_GPIO_Port, LED_BLUE_Pin, GPIO_PIN_SET);
       trace("log rotation\r\n");
       if (!log_close())
         trace("failed to close\r\n");
 
       if (!log_open())
         trace("failed to rotate log\r\n");
+      HAL_GPIO_WritePin(LED_BLUE_GPIO_Port, LED_BLUE_Pin, GPIO_PIN_RESET);
     }
   }
 
