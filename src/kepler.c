@@ -7,6 +7,8 @@
 #include <usart.h>
 #include <imu.h>
 #include <icm20948.h>
+#include <debug.h>
+
 //! Altimeter
 #include <mpl315a2.h>
 #include <clock.h>
@@ -40,7 +42,7 @@ static imu_t icm20948;
 int
 kepler_main(void)
 {
-  printf("%s\n", hello_msg);
+  trace("%s\n", hello_msg);
 
   // register ICM20948 imu
   icm_register_device(&icm20948);
@@ -67,15 +69,15 @@ kepler_main(void)
 
     icm20948.get_accelerations(&imc_accel.x, &imc_accel.y, &imc_accel.z);
     icm20948.get_angular_velocities(&imc_angular_vel.x, &imc_angular_vel.y, &imc_angular_vel.z);
-//    printf("ax %f ; ay %f ; az %f\r\n", imc_accel.x, imc_accel.y, imc_accel.z);
+    trace("ax %f ; ay %f ; az %f\r\n", imc_accel.x, imc_accel.y, imc_accel.z);
 
     if (mpl_is_on())
     {
       imc_pressure.value = mpl_read_pressure() * 0.01;
-//      printf("alt: %f ; press: %f ; temp: %f\r\n",
-//             mpl_read_altitude(),
-//             imc_pressure.value,
-//             mpl_read_temperature());
+      trace("alt: %f ; press: %f ; temp: %f\r\n",
+             mpl_read_altitude(),
+             imc_pressure.value,
+             mpl_read_temperature());
     }
   }
 

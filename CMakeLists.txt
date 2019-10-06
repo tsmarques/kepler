@@ -40,7 +40,6 @@ set(KEPLER_SOURCES
         src/sdmmc.c
         src/spi.c
         src/usart.c
-        src/main.c
         src/i2c.c
         src/mpl315a2.c src/clock.c)
 
@@ -98,41 +97,49 @@ add_definitions(
 )
 
 set(LDSCRIPT "${PROJECT_SOURCE_DIR}/STM32F767VITx_FLASH.ld")
-set(LIBS "--specs=rdimon.specs --specs=nano.specs -lgcc -lc -lm -lrdimon")
+set(LIBS "--specs=nano.specs -lgcc -lm")
 SET(LDFLAGS "--specs=nosys.specs ${MCU} ${FPU} ${FLOAT-ABI} -T${LDSCRIPT} ${LIBS} -Wl,-Map=${CMAKE_CURRENT_BINARY_DIR}/kepler.map,--cref -Wl,--gc-sections -u _printf_float -u _sprintf_float"
         CACHE INTERNAL "executable linker flags")
 
 ### Targets
 
-add_executable(kepler config.h ${KEPLER_SOURCES} ${STM_SOURCES})
-target_include_directories(kepler PRIVATE ${KEPLER_HEADERS} ${STM_HEADERS})
+macro(kepler_target target cpp_extra)
+    add_executable(${target} config.h ${KEPLER_SOURCES} ${STM_SOURCES} ${cpp_extra})
+    target_include_directories(${target} PRIVATE ${KEPLER_HEADERS} ${STM_HEADERS})
+    set_target_properties(${target} PROPERTIES SUFFIX .elf)
+
+    # iHEX
+    add_custom_command(TARGET ${target} POST_BUILD
+            COMMAND ${CMAKE_OBJCOPY} -O ihex ${target}.elf ${target}.hex
+            )
+
+    # Raw
+    add_custom_command(TARGET ${target} POST_BUILD
+            COMMAND ${CMAKE_OBJCOPY} -O binary ${target}.elf ${target}.bin
+            )
+
+    # Size.
+    add_custom_command(TARGET ${target} POST_BUILD
+            COMMAND arm-none-eabi-size ${target}.elf)
+
+    add_custom_target(${target}-flash
+            openocd
+            -f ${PROJECT_SOURCE_DIR}/scripts/kepler.cfg
+            -c init
+            -c targets
+            -c "arm semihosting enable"
+            -c "arm semihosting_fileio disable"
+            -c "reset init"
+            -c "flash write_image erase ${CMAKE_CURRENT_BINARY_DIR}/${target}.elf"
+            -c "verify_image ${CMAKE_CURRENT_BINARY_DIR}/${target}.elf"
+            -c "reset run"
+            DEPENDS ${target}
+            )
+endmacro()
+
+kepler_target(kepler src/main.c)
 target_link_libraries(kepler PRIVATE "${LDFLAGS}")
-set_target_properties(kepler PROPERTIES SUFFIX .elf)
 
-# iHEX
-add_custom_command(TARGET kepler POST_BUILD
-        COMMAND ${CMAKE_OBJCOPY} -O ihex kepler.elf kepler.hex
-        )
-
-# Raw
-add_custom_command(TARGET kepler POST_BUILD
-        COMMAND ${CMAKE_OBJCOPY} -O binary kepler.elf kepler.bin
-        )
-
-# Size.
-add_custom_command(TARGET kepler POST_BUILD
-        COMMAND arm-none-eabi-size kepler.elf)
-
-add_custom_target(kepler-flash
-        openocd
-        -f ${PROJECT_SOURCE_DIR}/scripts/kepler.cfg
-        -c init
-        -c targets
-        -c "arm semihosting enable"
-        -c "arm semihosting_fileio disable"
-        -c "reset init"
-        -c "flash write_image erase ${CMAKE_CURRENT_BINARY_DIR}/kepler.elf"
-        -c "verify_image ${CMAKE_CURRENT_BINARY_DIR}/kepler.elf"
-        -c "reset run"
-        DEPENDS kepler
-)
+kepler_target(kepler-dbg src/main.c)
+target_compile_definitions(kepler-dbg PRIVATE -DARM_SEMIHOST)
+target_link_libraries(kepler-dbg PRIVATE ${LDFLAGS} --specs=rdimon.specs -lrdimon -lc)
