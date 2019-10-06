@@ -9,6 +9,7 @@
 #include <icm20948.h>
 //! Altimeter
 #include <mpl315a2.h>
+#include <clock.h>
 
 //! IMC includes
 #include <imc-c/Acceleration.h>
@@ -52,26 +53,30 @@ kepler_main(void)
   int running = 1;
   mpl_init();
   HAL_GPIO_WritePin(LED_BLUE_GPIO_Port, LED_BLUE_Pin, GPIO_PIN_RESET);
+  clk_set_top(KEPLER_TIM_MAIN_LED, 1000);
+
   while(running)
   {
-    HAL_GPIO_TogglePin(LED_GREEN_GPIO_Port,LED_GREEN_Pin);
+    clk_update();
 
-    HAL_Delay(500);
+    if (clk_overflow(KEPLER_TIM_MAIN_LED))
+    {
+      HAL_GPIO_TogglePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin);
+      clk_set_top(KEPLER_TIM_MAIN_LED, 1000);
+    }
 
     icm20948.get_accelerations(&imc_accel.x, &imc_accel.y, &imc_accel.z);
     icm20948.get_angular_velocities(&imc_angular_vel.x, &imc_angular_vel.y, &imc_angular_vel.z);
-    printf("ax %f ; ay %f ; az %f\r\n", imc_accel.x, imc_accel.y, imc_accel.z);
+//    printf("ax %f ; ay %f ; az %f\r\n", imc_accel.x, imc_accel.y, imc_accel.z);
 
     if (mpl_is_on())
     {
       imc_pressure.value = mpl_read_pressure() * 0.01;
-      printf("alt: %f ; press: %f ; temp: %f\r\n",
-             mpl_read_altitude(),
-             imc_pressure.value,
-             mpl_read_temperature());
+//      printf("alt: %f ; press: %f ; temp: %f\r\n",
+//             mpl_read_altitude(),
+//             imc_pressure.value,
+//             mpl_read_temperature());
     }
-
-    HAL_Delay(100);
   }
 
   return 0;

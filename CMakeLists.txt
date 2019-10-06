@@ -42,7 +42,7 @@ set(KEPLER_SOURCES
         src/usart.c
         src/main.c
         src/i2c.c
-        src/mpl315a2.c)
+        src/mpl315a2.c src/clock.c)
 
 set(STM_SOURCES
         drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_cortex.c
