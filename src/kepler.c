@@ -55,7 +55,7 @@ kepler_main(void)
   int running = 1;
   mpl_init();
   HAL_GPIO_WritePin(LED_BLUE_GPIO_Port, LED_BLUE_Pin, GPIO_PIN_RESET);
-  clk_set_top(KEPLER_TIM_MAIN_LED, 1000);
+  clk_set_top(KEPLER_TIM_MAIN_LED, 500);
 
   while(running)
   {
