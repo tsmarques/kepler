@@ -19,7 +19,6 @@
 /* USER CODE END Header */
 
 /* Includes ------------------------------------------------------------------*/
-#include <dma.h>
 #include <gpio.h>
 #include <icm20948.h>
 #include <kepler.h>
@@ -32,6 +31,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include <inc/log.h>
 #include <stdio.h>
 
 extern void initialise_monitor_handles(void);
@@ -108,8 +108,9 @@ int main(void)
   MX_UART7_Init();
   MX_UART8_Init();
   MX_UART5_Init();
-  /* USER CODE BEGIN 2 */
   MX_I2C2_Init();
+  MX_DMA_Init();
+  MX_SDMMC1_SD_Init();
   /* USER CODE END 2 */
 
   /* Infinite loop */

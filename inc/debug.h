@@ -7,7 +7,7 @@
 #  define trace(...) printf(__VA_ARGS__)
 #else
 #  define debug_init()
-#  define trace(...)
+#  define trace(...);
 #endif
 
 #endif

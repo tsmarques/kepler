@@ -34,14 +34,22 @@ set(STM_HEADERS
 set(KEPLER_SOURCES
         startup_stm32f767xx.s
         src/kepler.c
-        src/dma.c
         src/gpio.c
         src/icm20948.c
         src/sdmmc.c
         src/spi.c
         src/usart.c
         src/i2c.c
-        src/mpl315a2.c src/clock.c)
+        src/mpl315a2.c
+        src/clock.c
+        src/sdcard/bsp_driver_sd.c
+        src/sdcard/diskio.c
+        src/sdcard/fatfs.c
+        src/sdcard/ff.c
+        src/sdcard/ff_gen_drv.c
+        src/sdcard/sd_diskio.c
+        src/log.c
+        )
 
 set(STM_SOURCES
         drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_cortex.c

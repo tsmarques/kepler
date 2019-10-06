@@ -8,7 +8,7 @@
 #include <imu.h>
 #include <icm20948.h>
 #include <debug.h>
-
+#include <log.h>
 //! Altimeter
 #include <mpl315a2.h>
 #include <clock.h>
@@ -21,6 +21,11 @@
 #include <imc-c/GpsFix.h>
 #include <imc-c/AngularVelocity.h>
 #include <imc-c/Pressure.h>
+
+//! working buffer
+static uint8_t bfr_work[1024];
+
+static  unsigned serialization_size = 0;
 
 static const char* hello_msg =
  "\x4e\x6f\x73\x79\x20\x62\x61\x73\x74\x61\x72\x64"
@@ -43,6 +48,13 @@ int
 kepler_main(void)
 {
   trace("%s\n", hello_msg);
+
+  // TODO handle error case
+  if (!log_init())
+    trace ("failed to mount disk\r\n");
+
+  if (!log_open())
+    trace("failed to open log\r\n");
 
   // register ICM20948 imu
   icm_register_device(&icm20948);
@@ -78,6 +90,34 @@ kepler_main(void)
              mpl_read_altitude(),
              imc_pressure.value,
              mpl_read_temperature());
+    }
+
+    // log accelerations
+    serialization_size = Acceleration_serialization_size(&imc_accel);
+    Acceleration_serialize(&imc_accel, bfr_work);
+    log_write(bfr_work, serialization_size);
+    bfr_work[0] = 0;
+
+    // log angular velocities
+    serialization_size = AngularVelocity_serialization_size(&imc_angular_vel);
+    AngularVelocity_serialize(&imc_angular_vel, bfr_work);
+    log_write(bfr_work, serialization_size);
+    bfr_work[0] = 0;
+
+    // log pressure
+    serialization_size = Pressure_serialization_size(&imc_pressure);
+    Pressure_serialize(&imc_pressure, bfr_work);
+    log_write(bfr_work, serialization_size);
+    bfr_work[0] = 0;
+
+    if (log_size() >= SDCARD_LOG_SIZE)
+    {
+      trace("log rotation\r\n");
+      if (!log_close())
+        trace("failed to close\r\n");
+
+      if (!log_open())
+        trace("failed to rotate log\r\n");
     }
   }
 

@@ -62,17 +62,22 @@
 #define EEPROM_SPEW_CONFIG                  (false)
 
 //! SD Card
-#define SDCARD_SPEW                         (false)
-#define SDCARD_MAX_PATH_NAME                (255)
-//! Maximum number of data frames to write before opening a new log
-#define SDCARD_MAX_FRAMES                   (5000)
-//! Estimated size of a data frame, in bytes
-#define SDCARD_FRAME_SIZE                   (250)
-// For now assume _MIN_SS == _MAX_SS
-#define SDCARD_BUFFER_SIZE                  (1 * _MAX_SS)
-#define SDCARD_FORCE_SYNC                   (false)
+#define SDCARD_DEVICE                       SDMMC1
+#define SDCARD_DMA_RCC_ENABLE               __HAL_RCC_DMA2_CLK_ENABLE
+#define SDCARD_DMA_STREAM_X                 DMA2_Stream3_IRQn
+#define SDCARD_DMA_STREAM_Y                 DMA2_Stream6_IRQn
+#define SDCARD_GPIO                         GPIOC
+#define SDCARD_D0_Pin                       GPIO_PIN_8
+#define SDCARD_D1_Pin                       GPIO_PIN_9
+#define SDCARD_D2_Pin                       GPIO_PIN_10
+#define SDCARD_D3_Pin                       GPIO_PIN_11
+#define SDCARD_CK_Pin                       GPIO_PIN_12
+#define SDCARD_CMD_Pin                      GPIO_PIN_2
+#define SDCARD_CMD_GPIO_Port                GPIOD
 #define SDCARD_PORT_POWER                   (GPIOD)
 #define SDCARD_PIN_POWER                    (GPIO_PIN_0)
+//! Log rotation size in KiB
+#define SDCARD_LOG_SIZE                     10240
 
 //! SWITCH HALL
 #define PORT_SWITCH_HAL                     (GPIOE)
@@ -131,13 +136,8 @@
 #define MPL_RCC_I2C_CLK_ENABLE              __HAL_RCC_I2C2_CLK_ENABLE
 #define MPL_RCC_I2C_CLK_DISABLE             __HAL_RCC_I2C2_CLK_DISABLE
 
-//! Storage Type to use
-#define STORAGE_TYPE         STORAGE_TYPE_SDCARD
-//! Use an SDCARD for storage
-#define STORAGE_TYPE_SDCARD  0
-//! Use internal flash for storage
-#define STORAGE_TYPE_FLASH   1
-
+//! How many bytes to accumulate before writing to disk
+#define LOG_CACHE_CAPACITY                  1024
 
 #endif
 
