@@ -65,9 +65,10 @@ kepler_main(void)
     if (mpl_is_on())
     {
       imc_pressure.value = mpl_read_pressure() * 0.01;
-      printf("alt: %f\r\n", mpl_read_altitude());
-      printf("press: %f\r\n", mpl_read_pressure());
-      printf("temp: %f\r\n", mpl_read_temperature());
+      printf("alt: %f ; press: %f ; temp: %f\r\n",
+             mpl_read_altitude(),
+             imc_pressure.value,
+             mpl_read_temperature());
     }
 
     HAL_Delay(100);

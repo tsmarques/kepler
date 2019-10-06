@@ -8,7 +8,7 @@
 #include <config.h>
 #include <stdio.h>
 
-extern I2C_HandleTypeDef hi2c4;
+extern I2C_HandleTypeDef MPL_I2C_HANDLER;
 
 
 //! Altitude data coming from OUT_P_MSB is scaled with this
@@ -21,13 +21,13 @@ const uint16_t c_temperature_scale_factor =  256;
 static inline uint8_t
 read_bytes(uint16_t addr, uint8_t* bytes, uint16_t n_bytes)
 {
-  return HAL_I2C_Mem_Read(&hi2c4, (MPL_I2C_ADDR << 1U), addr, I2C_MEMADD_SIZE_8BIT, bytes, n_bytes, 100);
+  return HAL_I2C_Mem_Read(&MPL_I2C_HANDLER, (MPL_I2C_ADDR << 1U), addr, I2C_MEMADD_SIZE_8BIT, bytes, n_bytes, 100);
 }
 
 static inline uint8_t
 write_bytes(uint16_t addr, uint8_t* bytes, uint16_t n_bytes)
 {
-  return HAL_I2C_Mem_Write(&hi2c4, (MPL_I2C_ADDR << 1U), addr, I2C_MEMADD_SIZE_8BIT, bytes, n_bytes, 100);
+  return HAL_I2C_Mem_Write(&MPL_I2C_HANDLER, (MPL_I2C_ADDR << 1U), addr, I2C_MEMADD_SIZE_8BIT, bytes, n_bytes, 100);
 }
 
 static inline void

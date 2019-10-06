@@ -108,7 +108,7 @@ int main(void)
   MX_UART8_Init();
   MX_UART5_Init();
   /* USER CODE BEGIN 2 */
-  MX_I2C4_Init();
+  MX_I2C2_Init();
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -164,13 +164,13 @@ void SystemClock_Config(void)
   }
   PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_UART4|RCC_PERIPHCLK_UART5
                                              |RCC_PERIPHCLK_UART7|RCC_PERIPHCLK_UART8
-                                             |RCC_PERIPHCLK_I2C4|RCC_PERIPHCLK_SDMMC1
+                                             |RCC_PERIPHCLK_I2C2|RCC_PERIPHCLK_SDMMC1
                                              |RCC_PERIPHCLK_CLK48;
   PeriphClkInitStruct.Uart4ClockSelection = RCC_UART4CLKSOURCE_PCLK1;
   PeriphClkInitStruct.Uart5ClockSelection = RCC_UART5CLKSOURCE_PCLK1;
   PeriphClkInitStruct.Uart7ClockSelection = RCC_UART7CLKSOURCE_PCLK1;
   PeriphClkInitStruct.Uart8ClockSelection = RCC_UART8CLKSOURCE_PCLK1;
-  PeriphClkInitStruct.I2c4ClockSelection = RCC_I2C4CLKSOURCE_PCLK1;
+  PeriphClkInitStruct.I2c2ClockSelection = RCC_I2C2CLKSOURCE_PCLK1;
   PeriphClkInitStruct.Clk48ClockSelection = RCC_CLK48SOURCE_PLL;
   PeriphClkInitStruct.Sdmmc1ClockSelection = RCC_SDMMC1CLKSOURCE_CLK48;
   if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInitStruct) != HAL_OK)

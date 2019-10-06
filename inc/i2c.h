@@ -6,10 +6,10 @@
 
 #include "main.h"
 
-extern I2C_HandleTypeDef hi2c4;
+extern I2C_HandleTypeDef MPL_I2C_HANDLER;
 
 void
-MX_I2C4_Init(void);
+MX_I2C2_Init(void);
 
 #ifdef __cplusplus
 }

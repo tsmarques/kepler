@@ -115,15 +115,21 @@
 #define LED_BLUE_GPIO_Port                  GPIOA
 
 //! Altimeter I2C's SDA pin
-#define MPL_SDA                             GPIO_PIN_13
+#define MPL_POWER_GPIO_PIN                  GPIO_PIN_13
+#define MPL_POWER_GPIO_PORT                 GPIOE
+#define MPL_SDA                             GPIO_PIN_11
 //! Altimeter I2C's SCL pin
-#define MPL_SCL                             GPIO_PIN_12
+#define MPL_SCL                             GPIO_PIN_10
 //! Altimeter's  I2C device
-#define MPL_I2C_DEVICE                      I2C4
+#define MPL_I2C_DEVICE                      I2C2
+#define MPL_I2C_HANDLER                     hi2c2
 //! Altimeter's GPIO
-#define MPL_I2C_GPIO                        GPIOD
+#define MPL_I2C_GPIO                        GPIOB
 //! Altimeter's I2C Slave Address
 #define MPL_I2C_ADDR                        0x60
+#define MPL_RCC_GPIO_CLK_ENABLE             __HAL_RCC_GPIOB_CLK_ENABLE
+#define MPL_RCC_I2C_CLK_ENABLE              __HAL_RCC_I2C2_CLK_ENABLE
+#define MPL_RCC_I2C_CLK_DISABLE             __HAL_RCC_I2C2_CLK_DISABLE
 
 //! Storage Type to use
 #define STORAGE_TYPE         STORAGE_TYPE_SDCARD
