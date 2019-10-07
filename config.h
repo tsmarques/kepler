@@ -1,9 +1,6 @@
 #ifndef __KEPLER_CONFIG_H__
 #define __KEPLER_CONFIG_H__
 
-#ifndef KEPLER_STM32F767_TESTBOARD_1_H
-#define KEPLER_STM32F767_TESTBOARD_1_H
-
 #define PORT_MAIN_POWER                     (GPIOE)
 #define PIN_MAIN_POWER                      (GPIO_PIN_10)
 
@@ -77,7 +74,7 @@
 #define SDCARD_PORT_POWER                   (GPIOD)
 #define SDCARD_PIN_POWER                    (GPIO_PIN_0)
 //! Log rotation size in KiB
-#define SDCARD_LOG_SIZE                     10240
+#define SDCARD_LOG_SIZE                     51200
 
 //! SWITCH HALL
 #define PORT_SWITCH_HAL                     (GPIOE)
@@ -138,7 +135,5 @@
 
 //! How many bytes to accumulate before writing to disk
 #define LOG_CACHE_CAPACITY                  1024
-
-#endif
 
 #endif
