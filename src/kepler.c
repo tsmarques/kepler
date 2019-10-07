@@ -9,6 +9,8 @@
 #include <icm20948.h>
 #include <debug.h>
 #include <log.h>
+#include <led.h>
+
 //! Altimeter
 #include <mpl315a2.h>
 #include <clock.h>
@@ -66,7 +68,7 @@ kepler_main(void)
 
   int running = 1;
   mpl_init();
-  HAL_GPIO_WritePin(LED_BLUE_GPIO_Port, LED_BLUE_Pin, GPIO_PIN_RESET);
+  led_off(LED_BLUE_GPIO_Port, LED_BLUE_Pin);
   clk_set_top(KEPLER_TIM_MAIN_LED, 500);
 
   while(running)
@@ -75,7 +77,7 @@ kepler_main(void)
 
     if (clk_overflow(KEPLER_TIM_MAIN_LED))
     {
-      HAL_GPIO_TogglePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin);
+      led_toggle(LED_GREEN_GPIO_Port, LED_GREEN_Pin);
       clk_set_top(KEPLER_TIM_MAIN_LED, 1000);
     }
 
@@ -112,14 +114,14 @@ kepler_main(void)
 
     if (log_size() >= SDCARD_LOG_SIZE)
     {
-      HAL_GPIO_WritePin(LED_BLUE_GPIO_Port, LED_BLUE_Pin, GPIO_PIN_SET);
+      led_on(LED_BLUE_GPIO_Port, LED_BLUE_Pin);
       trace("log rotation\r\n");
       if (!log_close())
         trace("failed to close\r\n");
 
       if (!log_open())
         trace("failed to rotate log\r\n");
-      HAL_GPIO_WritePin(LED_BLUE_GPIO_Port, LED_BLUE_Pin, GPIO_PIN_RESET);
+      led_off(LED_BLUE_GPIO_Port, LED_BLUE_Pin);
     }
   }
 
