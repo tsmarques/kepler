@@ -42,6 +42,9 @@ static AngularVelocity imc_angular_vel;
 //! IMC pressure message
 static Pressure imc_pressure;
 
+//! IMC Heartbeat
+static Heartbeat imc_hbeat;
+
 //! ICM20938 imu device
 static imu_t icm20948;
 
@@ -71,6 +74,7 @@ kepler_main(void)
   icm_register_device(&icm20948);
   icm20948.initialize();
 
+  imc_hbeat = Heartbeat_new();
   imc_accel = Acceleration_new();
   imc_angular_vel = AngularVelocity_new();
   imc_pressure = Pressure_new();
@@ -88,6 +92,8 @@ kepler_main(void)
     {
       led_toggle(LED_GREEN_GPIO_Port, LED_GREEN_Pin);
       clk_set_top(KEPLER_HEARTBEAT_TIMER, 1000);
+
+      log_imc(Heartbeat, imc_hbeat);
     }
 
     icm20948.get_accelerations(&imc_accel.x, &imc_accel.y, &imc_accel.z);
