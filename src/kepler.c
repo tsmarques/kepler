@@ -69,16 +69,16 @@ kepler_main(void)
   int running = 1;
   mpl_init();
   led_off(LED_BLUE_GPIO_Port, LED_BLUE_Pin);
-  clk_set_top(KEPLER_TIM_MAIN_LED, 500);
+  clk_set_top(KEPLER_HEARTBEAT_TIMER, 1000);
 
   while(running)
   {
     clk_update();
 
-    if (clk_overflow(KEPLER_TIM_MAIN_LED))
+    if (clk_overflow(KEPLER_HEARTBEAT_TIMER))
     {
       led_toggle(LED_GREEN_GPIO_Port, LED_GREEN_Pin);
-      clk_set_top(KEPLER_TIM_MAIN_LED, 1000);
+      clk_set_top(KEPLER_HEARTBEAT_TIMER, 1000);
     }
 
     icm20948.get_accelerations(&imc_accel.x, &imc_accel.y, &imc_accel.z);

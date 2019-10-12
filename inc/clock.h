@@ -7,7 +7,7 @@
 enum TIMER_ID
 {
   //! Timer for main led blinking
-  KEPLER_TIM_MAIN_LED = 0,
+  KEPLER_HEARTBEAT_TIMER = 0,
   //! Hack to know how many timers there are
   NUMBER_OF_TIMERS
 };
