@@ -45,6 +45,15 @@ static Pressure imc_pressure;
 //! ICM20938 imu device
 static imu_t icm20948;
 
+//! Utility macro to log an IMC message
+#define log_imc(MSG_NAME, imc_msg) {\
+    serialization_size = MSG_NAME##_serialization_size(&imc_msg); \
+    imc_msg.m_header.timestamp = HAL_GetTick(); \
+    MSG_NAME##_serialize(&imc_msg, bfr_work); \
+    log_write(bfr_work, serialization_size); \
+    bfr_work[0] = 0;\
+}
+
 
 int
 kepler_main(void)
@@ -95,22 +104,13 @@ kepler_main(void)
     }
 
     // log accelerations
-    serialization_size = Acceleration_serialization_size(&imc_accel);
-    Acceleration_serialize(&imc_accel, bfr_work);
-    log_write(bfr_work, serialization_size);
-    bfr_work[0] = 0;
+    log_imc(Acceleration, imc_accel);
 
     // log angular velocities
-    serialization_size = AngularVelocity_serialization_size(&imc_angular_vel);
-    AngularVelocity_serialize(&imc_angular_vel, bfr_work);
-    log_write(bfr_work, serialization_size);
-    bfr_work[0] = 0;
+    log_imc(AngularVelocity, imc_angular_vel);
 
     // log pressure
-    serialization_size = Pressure_serialization_size(&imc_pressure);
-    Pressure_serialize(&imc_pressure, bfr_work);
-    log_write(bfr_work, serialization_size);
-    bfr_work[0] = 0;
+    log_imc(Pressure, imc_pressure);
 
     if (log_size() >= SDCARD_LOG_SIZE)
     {
