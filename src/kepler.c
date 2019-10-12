@@ -82,7 +82,12 @@ kepler_main(void)
   int running = 1;
   mpl_init();
   led_off(BLUE);
+
+  // set timers
   clk_set_top(KEPLER_HEARTBEAT_TIMER, 1000);
+  clk_set_top(KEPLER_NAV_DATA_TIMER, 1000 / 6.0);
+  clk_set_top(KEPLER_HEARTBEAT_TIMER, 1000);
+  clk_set_top(KEPLER_PRESSURE_DATA_TIMER, 500);
 
   while(running)
   {
@@ -97,27 +102,33 @@ kepler_main(void)
       log_imc(Heartbeat, imc_hbeat);
     }
 
-    icm20948.get_accelerations(&imc_accel.x, &imc_accel.y, &imc_accel.z);
-    icm20948.get_angular_velocities(&imc_angular_vel.x, &imc_angular_vel.y, &imc_angular_vel.z);
-    trace("ax %f ; ay %f ; az %f\r\n", imc_accel.x, imc_accel.y, imc_accel.z);
-
-    if (mpl_is_on())
+    if (mpl_is_on() && clk_overflow(KEPLER_PRESSURE_DATA_TIMER))
     {
       imc_pressure.value = mpl_read_pressure() * 0.01;
+      // log pressure
+      log_imc(Pressure, imc_pressure);
+
       trace("alt: %f ; press: %f ; temp: %f\r\n",
              mpl_read_altitude(),
              imc_pressure.value,
              mpl_read_temperature());
+
+      clk_set_top(KEPLER_PRESSURE_DATA_TIMER, 500);
     }
 
-    // log accelerations
-    log_imc(Acceleration, imc_accel);
+    if (clk_overflow(KEPLER_NAV_DATA_TIMER))
+    {
+      icm20948.get_accelerations(&imc_accel.x, &imc_accel.y, &imc_accel.z);
+      icm20948.get_angular_velocities(&imc_angular_vel.x, &imc_angular_vel.y, &imc_angular_vel.z);
+      trace("ax %f ; ay %f ; az %f\r\n", imc_accel.x, imc_accel.y, imc_accel.z);
 
-    // log angular velocities
-    log_imc(AngularVelocity, imc_angular_vel);
+      // log accelerations
+      log_imc(Acceleration, imc_accel);
+      // log angular velocities
+      log_imc(AngularVelocity, imc_angular_vel);
 
-    // log pressure
-    log_imc(Pressure, imc_pressure);
+      clk_set_top(KEPLER_NAV_DATA_TIMER, 1000 / 6.0);
+    }
   }
 
   return 0;
