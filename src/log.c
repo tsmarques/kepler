@@ -8,6 +8,8 @@
 #include <imc-c/LoggingControl.h>
 
 //! HAL includes
+#include <inc/debug.h>
+#include <inc/led.h>
 #include <stdio.h>
 #include <stm32f7xx_hal.h>
 #include <string.h>
@@ -93,6 +95,22 @@ log_init(void)
 
   imc_logc = LoggingControl_new();
   return f_mount(&fs_obj, "", 1) == FR_OK;
+}
+
+void
+log_update()
+{
+  if (log_size() >= SDCARD_LOG_SIZE)
+  {
+    led_on(BLUE);
+    trace("log rotation\r\n");
+    if (!log_close())
+      trace("failed to close\r\n");
+
+    if (!log_open())
+      trace("failed to rotate log\r\n");
+    led_off(BLUE);
+  }
 }
 
 uint16_t

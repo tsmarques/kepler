@@ -14,6 +14,9 @@ log_size();
 bool
 log_init(void);
 
+void
+log_update();
+
 //! Check if there's an open log
 bool
 log_open();

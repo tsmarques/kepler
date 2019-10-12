@@ -87,6 +87,7 @@ kepler_main(void)
   while(running)
   {
     clk_update();
+    log_update();
 
     if (clk_overflow(KEPLER_HEARTBEAT_TIMER))
     {
@@ -117,18 +118,6 @@ kepler_main(void)
 
     // log pressure
     log_imc(Pressure, imc_pressure);
-
-    if (log_size() >= SDCARD_LOG_SIZE)
-    {
-      led_on(BLUE);
-      trace("log rotation\r\n");
-      if (!log_close())
-        trace("failed to close\r\n");
-
-      if (!log_open())
-        trace("failed to rotate log\r\n");
-      led_off(BLUE);
-    }
   }
 
   return 0;
