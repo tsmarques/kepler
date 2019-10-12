@@ -81,7 +81,7 @@ kepler_main(void)
 
   int running = 1;
   mpl_init();
-  led_off(LED_BLUE_GPIO_Port, LED_BLUE_Pin);
+  led_off(BLUE);
   clk_set_top(KEPLER_HEARTBEAT_TIMER, 1000);
 
   while(running)
@@ -90,7 +90,7 @@ kepler_main(void)
 
     if (clk_overflow(KEPLER_HEARTBEAT_TIMER))
     {
-      led_toggle(LED_GREEN_GPIO_Port, LED_GREEN_Pin);
+      led_toggle(GREEN);
       clk_set_top(KEPLER_HEARTBEAT_TIMER, 1000);
 
       log_imc(Heartbeat, imc_hbeat);
@@ -120,14 +120,14 @@ kepler_main(void)
 
     if (log_size() >= SDCARD_LOG_SIZE)
     {
-      led_on(LED_BLUE_GPIO_Port, LED_BLUE_Pin);
+      led_on(BLUE);
       trace("log rotation\r\n");
       if (!log_close())
         trace("failed to close\r\n");
 
       if (!log_open())
         trace("failed to rotate log\r\n");
-      led_off(LED_BLUE_GPIO_Port, LED_BLUE_Pin);
+      led_off(BLUE);
     }
   }
 
