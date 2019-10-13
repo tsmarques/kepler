@@ -20,10 +20,6 @@ enum TIMER_ID
 bool
 clk_overflow(uint8_t clk_id);
 
-//! Update timers
-void
-clk_update();
-
 //! Set timer value in milliseconds
 void
 clk_set_top(uint8_t id, float time_ms);
