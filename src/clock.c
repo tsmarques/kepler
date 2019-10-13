@@ -2,7 +2,7 @@
 
 #include <stm32f7xx_hal.h>
 
-//! Avaiable timers' remaining time in milliseconds
+//! Timer's value in ms
 static uint32_t clk_timers[NUMBER_OF_TIMERS] = {0};
 //! Time in ms when a clock was set
 static uint32_t clk_timers_start[NUMBER_OF_TIMERS] = {0};
