@@ -84,7 +84,7 @@ kepler_main(void)
   led_off(BLUE);
 
   // set timers
-  clk_set_top(KEPLER_HEARTBEAT_TIMER, 1000);
+  clk_set_top(KEPLER_HEARTBEAT_TIMER, 500);
   clk_set_top(KEPLER_NAV_DATA_TIMER, 1000 / 6.0);
   clk_set_top(KEPLER_HEARTBEAT_TIMER, 1000);
   clk_set_top(KEPLER_PRESSURE_DATA_TIMER, 500);
@@ -96,7 +96,7 @@ kepler_main(void)
     if (clk_overflow(KEPLER_HEARTBEAT_TIMER))
     {
       led_toggle(GREEN);
-      clk_set_top(KEPLER_HEARTBEAT_TIMER, 1000);
+      clk_set_top(KEPLER_HEARTBEAT_TIMER, 500);
 
       log_imc(Heartbeat, imc_hbeat);
     }
