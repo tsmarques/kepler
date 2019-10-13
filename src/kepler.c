@@ -91,7 +91,6 @@ kepler_main(void)
 
   while(running)
   {
-    clk_update();
     log_update();
 
     if (clk_overflow(KEPLER_HEARTBEAT_TIMER))
