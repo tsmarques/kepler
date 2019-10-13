@@ -23,7 +23,8 @@ enable_language(C ASM)
 set(KEPLER_HEADERS
         # This is a bit hacky but need it for config.h
         ${PROJECT_SOURCE_DIR}
-        inc)
+        inc
+        vendor/lsts)
 
 set(STM_HEADERS
         drivers/STM32F7xx_HAL_Driver/Inc
