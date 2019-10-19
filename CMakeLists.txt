@@ -1,17 +1,8 @@
-include(CMakeForceCompiler)
-
 set(CMAKE_SYSTEM_NAME Generic)
 set(CMAKE_SYSTEM_PROCESSOR ARM)
 SET(CMAKE_CROSSCOMPILING 1)
 
-set(TOOLCHAIN_PREFIX arm-none-eabi)
-
-set(CMAKE_C_COMPILER   ${TOOLCHAIN_PREFIX}-gcc)
-set(CMAKE_CXX_COMPILER ${TOOLCHAIN_PREFIX}-g++)
-set(CMAKE_ASM_COMPILER ${CMAKE_C_COMPILER})
-set(CMAKE_OBJCOPY      ${TOOLCHAIN_PREFIX}-objcopy CACHE INTERNAL "objcopy tool")
-set(CMAKE_SIZE_UTIL    ${TOOLCHAIN_PREFIX}-size CACHE INTERNAL "size tool")
-
+SET(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
 cmake_minimum_required(VERSION 3.15)
 project(kepler)
 
@@ -106,7 +97,7 @@ add_definitions(
 )
 
 set(LDSCRIPT "${PROJECT_SOURCE_DIR}/STM32F767VITx_FLASH.ld")
-set(LIBS "--specs=nano.specs -lgcc -lm")
+set(LIBS "-lgcc -lm")
 SET(LDFLAGS "--specs=nosys.specs ${MCU} ${FPU} ${FLOAT-ABI} -T${LDSCRIPT} ${LIBS} -Wl,-Map=${CMAKE_CURRENT_BINARY_DIR}/kepler.map,--cref -Wl,--gc-sections -u _printf_float -u _sprintf_float"
         CACHE INTERNAL "executable linker flags")
 
@@ -151,4 +142,4 @@ target_link_libraries(kepler PRIVATE "${LDFLAGS}")
 
 kepler_target(kepler-dbg src/main.c)
 target_compile_definitions(kepler-dbg PRIVATE -DARM_SEMIHOST)
-target_link_libraries(kepler-dbg PRIVATE ${LDFLAGS} --specs=rdimon.specs -lrdimon -lc)
+target_link_libraries(kepler-dbg PRIVATE ${LDFLAGS} --specs=rdimon.specs -lrdimon)
