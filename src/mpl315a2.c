@@ -6,7 +6,6 @@
 #include <stm32f7xx_hal.h>
 
 #include <config.h>
-#include <stdio.h>
 
 extern I2C_HandleTypeDef MPL_I2C_HANDLER;
 

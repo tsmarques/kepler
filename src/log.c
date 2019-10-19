@@ -10,7 +10,6 @@
 //! HAL includes
 #include <inc/debug.h>
 #include <inc/led.h>
-#include <stdio.h>
 #include <stm32f7xx_hal.h>
 #include <string.h>
 

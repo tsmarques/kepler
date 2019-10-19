@@ -32,7 +32,6 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include <inc/log.h>
-#include <stdio.h>
 
 extern void initialise_monitor_handles(void);
 void MX_SPI2_Init(void);
