@@ -93,8 +93,7 @@ set(FLOAT-ABI "-mfloat-abi=hard")
 set(MCU "${CPU} -mthumb -mlittle-endian -mthumb-interwork -std=gnu99")
 
 # GCC
-set(OPT "-O3")
-SET(CMAKE_C_FLAGS "${MCU} -fno-builtin ${FPU} ${FLOAT-ABI} -Wall ${AS_INCLUDES} ${OPT} -ffunction-sections -fdata-sections"
+SET(CMAKE_C_FLAGS "${MCU} -fno-builtin ${FPU} ${FLOAT-ABI} -Wall ${AS_INCLUDES}  -ffunction-sections -fdata-sections"
         CACHE INTERNAL "c compiler flags")
 
 # Assembly
@@ -110,7 +109,7 @@ add_definitions(
 
 set(LDSCRIPT "${PROJECT_SOURCE_DIR}/STM32F767VITx_FLASH.ld")
 set(LIBS "-lgcc -lm")
-SET(LDFLAGS "--specs=nosys.specs ${MCU} ${FPU} ${FLOAT-ABI} -T${LDSCRIPT} ${LIBS} -Wl,-Map=${CMAKE_CURRENT_BINARY_DIR}/kepler.map,--cref -Wl,--gc-sections -u _printf_float -u _sprintf_float"
+SET(LDFLAGS "--specs=nosys.specs ${MCU} ${FPU} ${FLOAT-ABI} -T${LDSCRIPT} ${LIBS} -Wl,--gc-sections -u _printf_float -u _sprintf_float"
         CACHE INTERNAL "executable linker flags")
 
 ### Targets
@@ -150,8 +149,8 @@ macro(kepler_target target cpp_extra)
 endmacro()
 
 kepler_target(kepler src/main.c)
-target_link_libraries(kepler PRIVATE "${LDFLAGS}")
+target_link_libraries(kepler PRIVATE "${LDFLAGS} -O2" -Wl,-Map=kepler.map)
 
 kepler_target(kepler-dbg src/main.c)
 target_compile_definitions(kepler-dbg PRIVATE -DARM_SEMIHOST)
-target_link_libraries(kepler-dbg PRIVATE ${LDFLAGS} --specs=rdimon.specs -lrdimon)
+target_link_libraries(kepler-dbg PRIVATE ${LDFLAGS} --specs=rdimon.specs -lrdimon -ggdb -Wl,-Map=kepler-dbg.map)
