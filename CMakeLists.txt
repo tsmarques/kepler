@@ -26,7 +26,8 @@ enable_language(C ASM)
 set(KEPLER_HEADERS
         # This is a bit hacky but need it for config.h
         ${PROJECT_SOURCE_DIR}
-        inc
+        inc/bsp/stm32f7/
+        inc/kepler/
         vendor/lsts)
 
 set(STM_HEADERS
@@ -35,9 +36,8 @@ set(STM_HEADERS
         drivers/CMSIS/Device/ST/STM32F7xx/Include
         drivers/CMSIS/Include)
 
-set(KEPLER_SOURCES
+set(KEPLER_BSP_SRC
         startup_stm32f767xx.s
-        src/kepler.c
         src/gpio.c
         src/icm20948.c
         src/sdmmc.c
@@ -51,9 +51,11 @@ set(KEPLER_SOURCES
         src/sdcard/fatfs.c
         src/sdcard/ff.c
         src/sdcard/ff_gen_drv.c
-        src/sdcard/sd_diskio.c
-        src/log.c
-        )
+        src/sdcard/sd_diskio.c)
+
+set(KEPLER_SOURCES
+        src/kepler.c
+        src/log.c)
 
 set(STM_SOURCES
         drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_cortex.c
@@ -80,9 +82,9 @@ set(STM_SOURCES
         drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_spi_ex.c
         drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_i2c.c
         drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_i2c_ex.c
-        src/stm32f7xx_hal_msp.c
-        src/stm32f7xx_it.c
-        src/system_stm32f7xx.c)
+        src/bsp/stm32f7/stm32f7xx_hal_msp.c
+        src/bsp/stm32f7/stm32f7xx_it.c
+        src/bsp/stm32f7/system_stm32f7xx.c)
 
 ### Flags, Options and Linker
 
@@ -115,7 +117,7 @@ SET(LDFLAGS "--specs=nosys.specs ${MCU} ${FPU} ${FLOAT-ABI} -T${LDSCRIPT} ${LIBS
 ### Targets
 
 macro(kepler_target target cpp_extra)
-    add_executable(${target} config.h ${KEPLER_SOURCES} ${STM_SOURCES} ${cpp_extra})
+    add_executable(${target} config.h ${KEPLER_SOURCES} ${KEPLER_BSP_SOURCES} ${STM_SOURCES} ${cpp_extra})
     target_include_directories(${target} PRIVATE ${KEPLER_HEADERS} ${STM_HEADERS})
     set_target_properties(${target} PROPERTIES SUFFIX .elf)
 
