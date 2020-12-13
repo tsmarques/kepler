@@ -26,8 +26,8 @@ enable_language(C ASM)
 set(KEPLER_HEADERS
         # This is a bit hacky but need it for config.h
         ${PROJECT_SOURCE_DIR}
-        inc/bsp/stm32f7/
-        inc/kepler/
+        inc/bsp/stm32f7
+        inc/kepler
         vendor/lsts)
 
 set(STM_HEADERS
