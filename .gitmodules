@@ -1,3 +1,0 @@
-[submodule "imc-c"]
-	path = vendor/lsts/imc-c
-	url = git@gitlab.com:cep-projects/project-saturn/software/imc-c.git
