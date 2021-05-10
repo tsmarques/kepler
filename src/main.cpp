@@ -1,11 +1,14 @@
 #include <ch.h>
 #include <hal.h>
 
+#include "../bsp/trace.h"
+
 int main()
 {
     halInit();
     chSysInit();
 
+    trace("init\r\n");
     while (!chThdShouldTerminateX())
     {
         palSetLine(LINE_LED1);

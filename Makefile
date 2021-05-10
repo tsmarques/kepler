@@ -14,7 +14,7 @@ ifeq ($(USE_COPT),)
 endif
 
 # C++ specific options here (added to USE_OPT).
-USE_CPPOPT = -fno-rtti -fno-exceptions
+USE_CPPOPT = -fno-rtti -fno-exceptions -fno-use-cxa-atexit
 
 
 # Enable this if you want the linker to remove unused code and data.
@@ -117,7 +117,8 @@ LDSCRIPT= $(STARTUPLD)/STM32F76xxI.ld
 # C sources that can be compiled in ARM or THUMB mode depending on the global
 # setting.
 CSRC = $(ALLCSRC) \
-       $(TESTSRC)
+       $(TESTSRC) \
+       bsp/trace.h
 
 # C++ sources that can be compiled in ARM or THUMB mode depending on the global
 # setting.

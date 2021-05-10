@@ -13,7 +13,7 @@ macro(kepler_target target cpp_extra)
     target_compile_options(${target} PRIVATE $<$<COMPILE_LANGUAGE:ASM>:${CHIBIOS_CFLAGS}>)
     target_compile_options(${target} PRIVATE $<$<COMPILE_LANGUAGE:C>:${CHIBIOS_CFLAGS}>)
     target_compile_options(${target} PRIVATE $<$<COMPILE_LANGUAGE:CXX>:${CHIBIOS_CPPFLAGS}>)
-    target_include_directories(${target} PRIVATE ${CHIBIOS_INCDIR})
+    target_include_directories(${target} PRIVATE ${KEPLER_INCDIR} ${CHIBIOS_INCDIR})
     target_link_libraries(${target} PRIVATE "${CHIBIOS_LDFLAGS} -Wl,-Map=${target}.map")
     set_target_properties(${target} PROPERTIES SUFFIX .elf)
 
@@ -33,6 +33,13 @@ macro(kepler_target target cpp_extra)
             )
 
 endmacro()
+
+set(KEPLER_INCDIR src bsp)
+
+set(KEPLER_SOURCES
+        src/main.cpp
+        src/data/BasicData.hpp
+        src/data/Attitude.hpp)
 
 kepler_target(kepler src/main.cpp)
 target_compile_options(kepler PRIVATE -O2)
