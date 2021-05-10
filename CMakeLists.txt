@@ -26,10 +26,10 @@ macro(kepler_target target cpp_extra)
             -c "arm semihosting enable"
             -c "arm semihosting_fileio disable"
             -c "reset init"
-            -c "flash write_image erase ${CMAKE_BINARY_DIR}/kepler.elf"
-            -c "verify_image ${CMAKE_BINARY_DIR}/kepler.elf"
+            -c "flash write_image erase ${CMAKE_BINARY_DIR}/${target}.elf"
+            -c "verify_image ${CMAKE_BINARY_DIR}/${target}.elf"
             -c "reset run"
-            DEPENDS kepler
+            DEPENDS ${target}
             )
 
 endmacro()
