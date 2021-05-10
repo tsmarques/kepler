@@ -9,7 +9,7 @@ include(cmake/ChibiOS.cmake)
 
 
 macro(kepler_target target cpp_extra)
-    add_executable(${target} ${CHIBIOS_SOURCES} ${cpp_extra})
+    add_executable(${target} ${KEPLER_SOURCES} ${CHIBIOS_SOURCES} ${cpp_extra})
     target_compile_options(${target} PRIVATE $<$<COMPILE_LANGUAGE:ASM>:${CHIBIOS_CFLAGS}>)
     target_compile_options(${target} PRIVATE $<$<COMPILE_LANGUAGE:C>:${CHIBIOS_CFLAGS}>)
     target_compile_options(${target} PRIVATE $<$<COMPILE_LANGUAGE:CXX>:${CHIBIOS_CPPFLAGS}>)
@@ -37,8 +37,10 @@ endmacro()
 set(KEPLER_INCDIR src bsp)
 
 set(KEPLER_SOURCES
-        src/main.cpp
+        src/driver/GPS.hpp
+        src/driver/IMU.hpp
         src/data/BasicData.hpp
+        src/data/GpsFix.hpp
         src/data/Attitude.hpp)
 
 kepler_target(kepler src/main.cpp)

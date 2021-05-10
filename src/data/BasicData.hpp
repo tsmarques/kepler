@@ -3,18 +3,19 @@
 
 namespace kepler
 {
-    constexpr uint16_t c_sync = 0x1202;
+  constexpr uint16_t c_sync = 0x1202;
 
-    enum DataType
-    {
-        DT_ATTITUDE = 0
-    };
+  enum DataType
+  {
+    DT_ATTITUDE = 0,
+    DT_GPSFIX   = 1
+  };
 
-    class BasicData
-    {
-    public:
-        virtual DataType getType() = 0;
-    };
+  class BasicData
+  {
+  public:
+    virtual DataType getType() = 0;
+  };
 }
 
 #endif
