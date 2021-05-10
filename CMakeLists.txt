@@ -17,7 +17,29 @@ macro(kepler_target target cpp_extra)
     target_link_libraries(${target} PRIVATE "${CHIBIOS_LDFLAGS} -Wl,-Map=${target}.map")
     set_target_properties(${target} PROPERTIES SUFFIX .elf)
 
-    # Flash.
+    # hex
+    add_custom_command(TARGET ${target} POST_BUILD
+            COMMAND ${CMAKE_OBJCOPY} -O ihex ${target}.elf ${target}.hex)
+
+    # bin
+    add_custom_command(TARGET ${target} POST_BUILD
+            COMMAND ${CMAKE_OBJCOPY} -O binary ${target}.elf ${target}.bin)
+
+    # dump assembly
+    add_custom_command(TARGET ${target} POST_BUILD
+            COMMAND ${CMAKE_OBJDUMP} -x --syms ${target}.elf > ${target}.dmp
+            VERBATIM)
+
+    # assembly + code
+    add_custom_command(TARGET ${target} POST_BUILD
+            COMMAND ${CMAKE_OBJDUMP} -S ${target}.elf > ${target}.list
+            VERBATIM)
+
+    # elf size
+    add_custom_command(TARGET ${target} POST_BUILD
+            COMMAND ${CMAKE_SIZE_UTIL} ${target}.elf)
+
+    # flash
     add_custom_target(${target}-flash
             openocd
             -f ${CMAKE_SOURCE_DIR}/kepler.cfg
