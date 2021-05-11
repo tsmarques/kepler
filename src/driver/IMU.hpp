@@ -2,11 +2,14 @@
 #define KEPLER_IMU_HPP
 
 #include <Config.hpp>
+
+#if KEPLER_USE_IMU
+
 #include <data/Attitude.hpp>
 
 static THD_FUNCTION(imu_driver_thread, arg)
 {
-  (void) arg;
+  mailbox_t* data_bus = (mailbox_t*) arg;
 
   kepler::data::Attitude att;
   int counter = 0;
@@ -16,8 +19,8 @@ static THD_FUNCTION(imu_driver_thread, arg)
     att.m_theta = counter++;
     att.m_psi = counter++;
 
-    // dispatch attitude data
-    // (...)
+    if (chMBPostTimeout(data_bus, (msg_t)&att, TIME_MS2I(100)) != MSG_OK)
+        trace("imu: failed\r\n");
 
     palToggleLine(LINE_LED2);
     chThdSleepMilliseconds(1000 / IMU_DRIVER_FREQ);
@@ -25,14 +28,16 @@ static THD_FUNCTION(imu_driver_thread, arg)
 }
 
 thread_t*
-startImuDriver()
+startImuDriver(mailbox_t* data_bus)
 {
   return chThdCreateFromHeap(nullptr,
                              THD_WORKING_AREA_SIZE(128),
                              nullptr,
                              NORMALPRIO,
                              imu_driver_thread,
-                             nullptr);
+                             data_bus);
 }
+
+#endif
 
 #endif
