@@ -4,6 +4,7 @@
 #include "../bsp/trace.h"
 #include <driver/IMU.hpp>
 #include <driver/GPS.hpp>
+#include <driver/Altimeter.hpp>
 
 int main()
 {
@@ -24,6 +25,12 @@ int main()
   trace("starting gps driver\r\n");
   if (startGpsDriver(&data_bus) == nullptr)
       trace("failed\r\n");
+#endif
+
+#if KEPLER_USE_ALTIMETER
+  trace("starting altimeter driver\r\n");
+  if (startAltimeterDriver(&data_bus) == nullptr)
+    trace("failed\r\n");
 #endif
 
   kepler::BasicData* msg;
@@ -47,6 +54,11 @@ int main()
           trace("GpsFix | lat: %.3f lon: %.3f h: %.3f\r\n",
                 fix->m_lat, fix->m_lon, fix->m_height);
           break;
+        }
+        case kepler::DT_PRESSURE:
+        {
+          kepler::data::Pressure* p = static_cast<kepler::data::Pressure*>(msg);
+          trace("Pressure | value %.3f\r\n", p->value);
         }
       }
     }

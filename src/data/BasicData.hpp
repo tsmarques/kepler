@@ -8,7 +8,8 @@ namespace kepler
   enum DataType
   {
     DT_ATTITUDE = 0,
-    DT_GPSFIX   = 1
+    DT_GPSFIX   = 1,
+    DT_PRESSURE = 2
   };
 
   class BasicData

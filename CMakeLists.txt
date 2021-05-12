@@ -61,9 +61,11 @@ set(KEPLER_INCDIR src bsp)
 set(KEPLER_SOURCES
         src/driver/GPS.hpp
         src/driver/IMU.hpp
+        src/driver/Altimeter.hpp
         src/data/BasicData.hpp
         src/data/GpsFix.hpp
-        src/data/Attitude.hpp)
+        src/data/Attitude.hpp
+        src/data/Pressure.hpp)
 
 kepler_target(kepler src/main.cpp)
 target_compile_options(kepler PRIVATE -O2)
