@@ -87,8 +87,6 @@ PROJECT = kepler
 MCU  = cortex-m7
 
 # Imported source files and paths.
-CHIBIOS  := vendor/chibios
-CONFDIR  := $(CHIBIOS)/../../bsp/cfg
 
 # Licensing files.
 include $(CHIBIOS)/os/license/license.mk
@@ -97,7 +95,8 @@ include $(CHIBIOS)/os/common/startup/ARMCMx/compilers/GCC/mk/startup_stm32f7xx.m
 # HAL-OSAL files (optional).
 include $(CHIBIOS)/os/hal/hal.mk
 include $(CHIBIOS)/os/hal/ports/STM32/STM32F7xx/platform.mk
-include $(CHIBIOS)/os/hal/boards/ST_NUCLEO144_F767ZI/board.mk
+#include $(CHIBIOS)/os/hal/boards/ST_NUCLEO144_F767ZI/board.mk
+include $(CONFDIR)/../board.mk
 include $(CHIBIOS)/os/hal/osal/rt-nil/osal.mk
 # RTOS files (optional).
 include $(CHIBIOS)/os/rt/rt.mk
@@ -117,8 +116,7 @@ LDSCRIPT= $(STARTUPLD)/STM32F76xxI.ld
 # C sources that can be compiled in ARM or THUMB mode depending on the global
 # setting.
 CSRC = $(ALLCSRC) \
-       $(TESTSRC) \
-       bsp/trace.h
+       $(TESTSRC)
 
 # C++ sources that can be compiled in ARM or THUMB mode depending on the global
 # setting.

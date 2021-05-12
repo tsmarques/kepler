@@ -1,10 +1,11 @@
-#include <ch.h>
-#include <hal.h>
+#include <kepler.hpp>
 
 #include "../bsp/trace.h"
-#include <driver/IMU.hpp>
-#include <driver/GPS.hpp>
-#include <driver/Altimeter.hpp>
+#include <data/Attitude.hpp>
+#include <data/GpsFix.hpp>
+#include <data/Pressure.hpp>
+
+extern void bsp_init(mailbox_t* data_bus);
 
 int main()
 {
@@ -15,23 +16,7 @@ int main()
   msg_t data_msg[10];
   chMBObjectInit(&data_bus, data_msg, 10);
 
-#if KEPLER_USE_IMU
-  trace("starting imu driver\r\n");
-  if (startImuDriver(&data_bus) == nullptr)
-      trace("failed\r\n");
-#endif
-
-#if KEPLER_USE_GPS
-  trace("starting gps driver\r\n");
-  if (startGpsDriver(&data_bus) == nullptr)
-      trace("failed\r\n");
-#endif
-
-#if KEPLER_USE_ALTIMETER
-  trace("starting altimeter driver\r\n");
-  if (startAltimeterDriver(&data_bus) == nullptr)
-    trace("failed\r\n");
-#endif
+  bsp_init(&data_bus);
 
   kepler::BasicData* msg;
   while (!chThdShouldTerminateX())

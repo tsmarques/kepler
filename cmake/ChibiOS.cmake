@@ -1,10 +1,10 @@
 macro(chibios_extract VAR_NAME _AS_LIST)
     execute_process(
-            COMMAND make TRGT=${TOOLCHAIN_PREFIX} print-${VAR_NAME}
+            COMMAND make CHIBIOS=${CHIBIOS} CONFDIR=${CONFDIR} TRGT=${TOOLCHAIN_PREFIX} print-${VAR_NAME}
             COMMAND_ECHO STDOUT
             ECHO_ERROR_VARIABLE
             COMMAND_ERROR_IS_FATAL ANY
-            WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+            WORKING_DIRECTORY ${BSP_SOURCE_DIR}
             OUTPUT_VARIABLE CHIBIOS_${VAR_NAME})
 
     string(REGEX REPLACE ".dep/print-C[P]*FLAGS.d" "" CHIBIOS_${VAR_NAME} "${CHIBIOS_${VAR_NAME}}")
@@ -23,6 +23,8 @@ macro(chibios_extract VAR_NAME _AS_LIST)
     endif()
 endmacro()
 
+set(CHIBIOS ${CMAKE_SOURCE_DIR}/vendor/chibios)
+set(CONFDIR  ${BSP_SOURCE_DIR}/cfg)
 
 # CHIBIOS_CSRC
 chibios_extract(CSRC 1)
@@ -41,8 +43,8 @@ chibios_extract(ASMXSRC 1)
 # CHIBIOS_LDFLAGS
 #chibios_get(LDFLAGS)
 
+# @fixme hardcoded
 set(CHIBIOS_LDFLAGS "-mcpu=cortex-m7 -fomit-frame-pointer -falign-functions=16 -Wno-psabi -ffunction-sections -fdata-sections -fno-common -flto -mfloat-abi=hard -mfpu=fpv5-d16 -nostartfiles  -Wl,--cref,--no-warn-mismatch,--library-path=${CMAKE_SOURCE_DIR}/vendor/chibios/os/common/startup/ARMCMx/compilers/GCC/ld,--script=${CMAKE_SOURCE_DIR}/vendor/chibios/os/common/startup/ARMCMx/compilers/GCC/ld/STM32F76xxI.ld,--gc-sections,--defsym=__process_stack_size__=0x500,--defsym=__main_stack_size__=0x500")
-#
 
 set(CHIBIOS_SOURCES
         ${CHIBIOS_CSRC}

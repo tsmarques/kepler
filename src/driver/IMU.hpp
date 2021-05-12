@@ -5,6 +5,8 @@
 
 #if KEPLER_USE_IMU
 
+#include <ch.h>
+#include <board.h>
 #include <data/Attitude.hpp>
 
 static THD_FUNCTION(imu_driver_thread, arg)

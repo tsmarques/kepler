@@ -1,6 +1,8 @@
 #ifndef KEPLER_CONFIG_HPP
 #define KEPLER_CONFIG_HPP
 
+#include <kepler.hpp>
+
 //! IMU driver
 #define KEPLER_USE_IMU       1
 

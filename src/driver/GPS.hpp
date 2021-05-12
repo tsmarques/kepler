@@ -5,6 +5,7 @@
 
 #if KEPLER_USE_GPS
 
+#include <ch.h>
 #include <data/GpsFix.hpp>
 
 static THD_FUNCTION(gps_driver_thread, arg)
@@ -18,7 +19,7 @@ static THD_FUNCTION(gps_driver_thread, arg)
 
   while (!chThdShouldTerminateX())
   {
-    if (chMBPostTimeout(data_bus, (msg_t)&fix, TIME_MS2I(100)) != MSG_OK)
+    if (chMBPostTimeout(data_bus, (msg_t)&fix, TIME_IMMEDIATE) != MSG_OK)
       trace("gps: failed\r\n");
 
     palToggleLine(LINE_LED3);

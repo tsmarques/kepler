@@ -5,6 +5,7 @@
 
 #if KEPLER_USE_ALTIMETER
 
+#include <ch.h>
 #include <data/Pressure.hpp>
 
 static THD_FUNCTION(altimeter_driver_thread, arg)

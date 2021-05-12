@@ -5,8 +5,6 @@ project(kepler)
 
 set(CMAKE_CXX_STANDARD 17)
 enable_language(C CXX ASM)
-include(cmake/ChibiOS.cmake)
-
 
 macro(kepler_target target cpp_extra)
     add_executable(${target} ${KEPLER_SOURCES} ${CHIBIOS_SOURCES} ${cpp_extra})
@@ -42,7 +40,7 @@ macro(kepler_target target cpp_extra)
     # flash
     add_custom_target(${target}-flash
             openocd
-            -f ${CMAKE_SOURCE_DIR}/kepler.cfg
+            -f ${BSP_FLASH_CONFIG}
             -c init
             -c targets
             -c "arm semihosting enable"
@@ -56,12 +54,28 @@ macro(kepler_target target cpp_extra)
 
 endmacro()
 
-set(KEPLER_INCDIR src bsp)
+if (NOT BSP)
+    set(BSP "stm32f767zi-nucleo44")
+endif()
+
+message(STATUS "BSP: ${BSP}")
+set(BSP_SOURCE_DIR ${CMAKE_SOURCE_DIR}/bsp/${BSP})
+set(BSP_CMAKE_FILE ${BSP_SOURCE_DIR}/bsp.cmake)
+
+if (NOT EXISTS "${BSP_CMAKE_FILE}")
+    message(FATAL_ERROR "File ${BSP_CMAKE_FILE} not found\nCheck ${CMAKE_SOURCE_DIR}/bsp for available BSPs")
+endif()
+
+include(cmake/ChibiOS.cmake)
+include(${BSP_CMAKE_FILE})
+
+set(KEPLER_INCDIR src ${BSP_INCDIR})
 
 set(KEPLER_SOURCES
-        src/driver/GPS.hpp
-        src/driver/IMU.hpp
-        src/driver/Altimeter.hpp
+        ${BSP_CONFIG_HPP}
+        ${BSP_SOURCES}
+        bsp/trace.h
+        src/kepler.hpp
         src/data/BasicData.hpp
         src/data/GpsFix.hpp
         src/data/Attitude.hpp
