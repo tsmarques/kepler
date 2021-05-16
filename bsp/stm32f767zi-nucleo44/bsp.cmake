@@ -6,9 +6,9 @@
 # All BSP sources
 set(BSP_SOURCES
         ${BSP_SOURCE_DIR}/bsp.cpp
-        ${CMAKE_SOURCE_DIR}/src/driver/GPS.hpp
-        ${CMAKE_SOURCE_DIR}/src/driver/IMU.hpp
-        ${CMAKE_SOURCE_DIR}/src/driver/Altimeter.hpp)
+        ${CMAKE_SOURCE_DIR}/src/driver/mock/GPS.hpp
+        ${CMAKE_SOURCE_DIR}/src/driver/mock/IMU.hpp
+        ${CMAKE_SOURCE_DIR}/src/driver/mock/Altimeter.hpp)
 
 # Path to Config.hpp file
 set(BSP_CONFIG_HPP ${BSP_SOURCE_DIR}/Config.hpp)
