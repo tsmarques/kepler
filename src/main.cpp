@@ -47,7 +47,5 @@ int main()
         }
       }
     }
-
-    palToggleLine(LINE_LED1);
   }
 }
