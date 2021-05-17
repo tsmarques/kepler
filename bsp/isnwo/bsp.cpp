@@ -1,8 +1,10 @@
 #include "../trace.h"
 #include <Config.hpp>
 
+#include <driver/MPL3115A2.cpp>
+
 void
-bsp_init(mailbox_t* data_bus)
+light_them_up()
 {
   palSetLine(LINE_LED_RED);
 
@@ -53,4 +55,12 @@ bsp_init(mailbox_t* data_bus)
   chThdSleepMilliseconds(100);
 
   palSetLine(LINE_LED_GREEN);
+}
+
+void
+bsp_init(mailbox_t* data_bus)
+{
+//  light_them_up();
+
+  kepler::drivers::mpl3115a2::start(data_bus);
 }

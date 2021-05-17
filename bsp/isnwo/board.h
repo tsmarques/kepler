@@ -55,7 +55,7 @@
 #define STM32_HSECLK                8000000U
 #endif
 
-#define STM32_HSE_BYPASS
+//#define STM32_HSE_BYPASS
 
 /*
  * Board voltages.
@@ -117,10 +117,8 @@
 #define GPIOB_I2C1_SCL              8U
 #define GPIOB_ARD_D14               9U
 #define GPIOB_I2C1_SDA              9U
-#define GPIOB_ZIO_D36               10U
-#define GPIOB_TIM2_CH3              10U
-#define GPIOB_ZIO_D35               11U
-#define GPIOB_TIM2_CH4              11U
+#define GPIOB_MPL3115A2_SCL               10U
+#define GPIOB_MPL3115A2_SDA               11U
 #define GPIOB_ZIO_D19               12U
 #define GPIOB_I2S2_WS               12U
 #define GPIOB_ZIO_D18               13U
@@ -215,8 +213,7 @@
 #define GPIOE_TIM1_CH2              11U
 #define GPIOE_ZIO_D39               12U
 #define GPIOE_TIM1_CH3N             12U
-#define GPIOE_ARD_D3                13U
-#define GPIOE_TIM1_CH3              13U
+#define GPIOE_MPL3115A2_PWR                13U
 #define GPIOE_ZIO_D38               14U
 #define GPIOE_ZIO_D37               15U
 #define GPIOE_TIM1_BKIN1            15U
@@ -383,9 +380,8 @@
 #define LINE_I2C1_SCL               PAL_LINE(GPIOB, 8U)
 #define LINE_ARD_D14                PAL_LINE(GPIOB, 9U)
 #define LINE_I2C1_SDA               PAL_LINE(GPIOB, 9U)
-#define LINE_ZIO_D36                PAL_LINE(GPIOB, 10U)
-#define LINE_TIM2_CH3               PAL_LINE(GPIOB, 10U)
-#define LINE_ZIO_D35                PAL_LINE(GPIOB, 11U)
+#define LINE_MPL3115A2_SCL                PAL_LINE(GPIOB, 10U)
+#define LINE_MPL3115A2_SDA                PAL_LINE(GPIOB, 11U)
 #define LINE_TIM2_CH4               PAL_LINE(GPIOB, 11U)
 #define LINE_ZIO_D19                PAL_LINE(GPIOB, 12U)
 #define LINE_I2S2_WS                PAL_LINE(GPIOB, 12U)
@@ -476,7 +472,7 @@
 #define LINE_TIM1_CH2               PAL_LINE(GPIOE, 11U)
 #define LINE_ZIO_D39                PAL_LINE(GPIOE, 12U)
 #define LINE_TIM1_CH3N              PAL_LINE(GPIOE, 12U)
-#define LINE_ARD_D3                 PAL_LINE(GPIOE, 13U)
+#define LINE_MPL3115A2_PWR                 PAL_LINE(GPIOE, 13U)
 #define LINE_TIM1_CH3               PAL_LINE(GPIOE, 13U)
 #define LINE_ZIO_D38                PAL_LINE(GPIOE, 14U)
 #define LINE_ZIO_D37                PAL_LINE(GPIOE, 15U)
@@ -688,8 +684,8 @@
  * PB7  - LED2                      (output pushpull maximum).
  * PB8  - ARD_D15 I2C1_SCL          (input pullup).
  * PB9  - ARD_D14 I2C1_SDA          (input pullup).
- * PB10 - ZIO_D36 TIM2_CH3          (input pullup).
- * PB11 - ZIO_D35 TIM2_CH4          (input pullup).
+ * PB10 - MPL3115A2_SCL             (alternate 4).
+ * PB11 - MPL3115A2_SDA             (alternate 4)
  * PB12 - ZIO_D19 I2S2_WS           (input pullup).
  * PB13 - ZIO_D18 I2S2_CK RMII_TXD1 (alternate 11).
  * PB14 - LED3                      (output pushpull maximum).
@@ -705,8 +701,8 @@
                                      PIN_MODE_OUTPUT(GPIOB_LED2) |          \
                                      PIN_MODE_INPUT(GPIOB_ARD_D15) |        \
                                      PIN_MODE_INPUT(GPIOB_ARD_D14) |        \
-                                     PIN_MODE_INPUT(GPIOB_ZIO_D36) |        \
-                                     PIN_MODE_INPUT(GPIOB_ZIO_D35) |        \
+                                     PIN_MODE_ALTERNATE(GPIOB_MPL3115A2_SCL) |        \
+                                     PIN_MODE_ALTERNATE(GPIOB_MPL3115A2_SDA) |        \
                                      PIN_MODE_INPUT(GPIOB_ZIO_D19) |        \
                                      PIN_MODE_ALTERNATE(GPIOB_ZIO_D18) |    \
                                      PIN_MODE_OUTPUT(GPIOB_LED3) |          \
@@ -721,8 +717,8 @@
                                      PIN_OTYPE_PUSHPULL(GPIOB_LED2) |       \
                                      PIN_OTYPE_PUSHPULL(GPIOB_ARD_D15) |    \
                                      PIN_OTYPE_PUSHPULL(GPIOB_ARD_D14) |    \
-                                     PIN_OTYPE_PUSHPULL(GPIOB_ZIO_D36) |    \
-                                     PIN_OTYPE_PUSHPULL(GPIOB_ZIO_D35) |    \
+                                     PIN_OTYPE_OPENDRAIN(GPIOB_MPL3115A2_SCL) |    \
+                                     PIN_OTYPE_OPENDRAIN(GPIOB_MPL3115A2_SDA) |    \
                                      PIN_OTYPE_PUSHPULL(GPIOB_ZIO_D19) |    \
                                      PIN_OTYPE_PUSHPULL(GPIOB_ZIO_D18) |    \
                                      PIN_OTYPE_PUSHPULL(GPIOB_LED3) |       \
@@ -737,8 +733,8 @@
                                      PIN_OSPEED_HIGH(GPIOB_LED2) |          \
                                      PIN_OSPEED_HIGH(GPIOB_ARD_D15) |       \
                                      PIN_OSPEED_HIGH(GPIOB_ARD_D14) |       \
-                                     PIN_OSPEED_HIGH(GPIOB_ZIO_D36) |       \
-                                     PIN_OSPEED_HIGH(GPIOB_ZIO_D35) |       \
+                                     PIN_OSPEED_HIGH(GPIOB_MPL3115A2_SCL) |       \
+                                     PIN_OSPEED_HIGH(GPIOB_MPL3115A2_SDA) |       \
                                      PIN_OSPEED_HIGH(GPIOB_ZIO_D19) |       \
                                      PIN_OSPEED_HIGH(GPIOB_ZIO_D18) |       \
                                      PIN_OSPEED_HIGH(GPIOB_LED3) |          \
@@ -753,8 +749,8 @@
                                      PIN_PUPDR_FLOATING(GPIOB_LED2) |       \
                                      PIN_PUPDR_PULLUP(GPIOB_ARD_D15) |      \
                                      PIN_PUPDR_PULLUP(GPIOB_ARD_D14) |      \
-                                     PIN_PUPDR_PULLUP(GPIOB_ZIO_D36) |      \
-                                     PIN_PUPDR_PULLUP(GPIOB_ZIO_D35) |      \
+                                     PIN_PUPDR_FLOATING(GPIOB_MPL3115A2_SCL) |      \
+                                     PIN_PUPDR_FLOATING(GPIOB_MPL3115A2_SDA) |      \
                                      PIN_PUPDR_PULLUP(GPIOB_ZIO_D19) |      \
                                      PIN_PUPDR_PULLUP(GPIOB_ZIO_D18) |      \
                                      PIN_PUPDR_FLOATING(GPIOB_LED3) |       \
@@ -769,8 +765,8 @@
                                      PIN_ODR_LOW(GPIOB_LED2) |              \
                                      PIN_ODR_HIGH(GPIOB_ARD_D15) |          \
                                      PIN_ODR_HIGH(GPIOB_ARD_D14) |          \
-                                     PIN_ODR_HIGH(GPIOB_ZIO_D36) |          \
-                                     PIN_ODR_HIGH(GPIOB_ZIO_D35) |          \
+                                     PIN_ODR_HIGH(GPIOB_MPL3115A2_SCL) |          \
+                                     PIN_ODR_HIGH(GPIOB_MPL3115A2_SDA) |          \
                                      PIN_ODR_HIGH(GPIOB_ZIO_D19) |          \
                                      PIN_ODR_HIGH(GPIOB_ZIO_D18) |          \
                                      PIN_ODR_LOW(GPIOB_LED3) |              \
@@ -785,8 +781,8 @@
                                      PIN_AFIO_AF(GPIOB_LED2, 0U))
 #define VAL_GPIOB_AFRH              (PIN_AFIO_AF(GPIOB_ARD_D15, 0U) |       \
                                      PIN_AFIO_AF(GPIOB_ARD_D14, 0U) |       \
-                                     PIN_AFIO_AF(GPIOB_ZIO_D36, 0U) |       \
-                                     PIN_AFIO_AF(GPIOB_ZIO_D35, 0U) |       \
+                                     PIN_AFIO_AF(GPIOB_MPL3115A2_SCL, 4U) | \
+                                     PIN_AFIO_AF(GPIOB_MPL3115A2_SDA, 4U) | \
                                      PIN_AFIO_AF(GPIOB_ZIO_D19, 0U) |       \
                                      PIN_AFIO_AF(GPIOB_ZIO_D18, 11U) |      \
                                      PIN_AFIO_AF(GPIOB_LED3, 0U) |          \
@@ -1042,7 +1038,7 @@
  * PE10 - MAIN_POWER TIM1_CH2N         (output pushpull).
  * PE11 - ARD_D5 TIM1_CH2           (input pullup).
  * PE12 - ZIO_D39 TIM1_CH3N         (input pullup).
- * PE13 - ARD_D3 TIM1_CH3           (input pullup).
+ * PE13 - MPL3115A2_PWR TIM1_CH3           (input pullup).
  * PE14 - ZIO_D38                   (input pullup).
  * PE15 - ZIO_D37 TIM1_BKIN1        (input pullup).
  */
@@ -1059,7 +1055,7 @@
                                      PIN_MODE_OUTPUT(GPIOE_MAIN_POWER) |        \
                                      PIN_MODE_INPUT(GPIOE_ARD_D5) |         \
                                      PIN_MODE_INPUT(GPIOE_ZIO_D39) |        \
-                                     PIN_MODE_INPUT(GPIOE_ARD_D3) |         \
+                                     PIN_MODE_OUTPUT(GPIOE_MPL3115A2_PWR) |         \
                                      PIN_MODE_INPUT(GPIOE_ZIO_D38) |        \
                                      PIN_MODE_INPUT(GPIOE_ZIO_D37))
 #define VAL_GPIOE_OTYPER            (PIN_OTYPE_PUSHPULL(GPIOE_ZIO_D34) |    \
@@ -1075,7 +1071,7 @@
                                      PIN_OTYPE_PUSHPULL(GPIOE_MAIN_POWER) |    \
                                      PIN_OTYPE_PUSHPULL(GPIOE_ARD_D5) |     \
                                      PIN_OTYPE_PUSHPULL(GPIOE_ZIO_D39) |    \
-                                     PIN_OTYPE_PUSHPULL(GPIOE_ARD_D3) |     \
+                                     PIN_OTYPE_PUSHPULL(GPIOE_MPL3115A2_PWR) |     \
                                      PIN_OTYPE_PUSHPULL(GPIOE_ZIO_D38) |    \
                                      PIN_OTYPE_PUSHPULL(GPIOE_ZIO_D37))
 #define VAL_GPIOE_OSPEEDR           (PIN_OSPEED_HIGH(GPIOE_ZIO_D34) |       \
@@ -1091,7 +1087,7 @@
                                      PIN_OSPEED_HIGH(GPIOE_MAIN_POWER) |       \
                                      PIN_OSPEED_HIGH(GPIOE_ARD_D5) |        \
                                      PIN_OSPEED_HIGH(GPIOE_ZIO_D39) |       \
-                                     PIN_OSPEED_HIGH(GPIOE_ARD_D3) |        \
+                                     PIN_OSPEED_HIGH(GPIOE_MPL3115A2_PWR) |        \
                                      PIN_OSPEED_VERYLOW(GPIOE_ZIO_D38) |    \
                                      PIN_OSPEED_HIGH(GPIOE_ZIO_D37))
 #define VAL_GPIOE_PUPDR             (PIN_PUPDR_PULLUP(GPIOE_ZIO_D34) |      \
@@ -1107,7 +1103,7 @@
                                      PIN_PUPDR_FLOATING(GPIOE_MAIN_POWER) |      \
                                      PIN_PUPDR_PULLUP(GPIOE_ARD_D5) |       \
                                      PIN_PUPDR_PULLUP(GPIOE_ZIO_D39) |      \
-                                     PIN_PUPDR_PULLUP(GPIOE_ARD_D3) |       \
+                                     PIN_PUPDR_FLOATING(GPIOE_MPL3115A2_PWR) |       \
                                      PIN_PUPDR_PULLUP(GPIOE_ZIO_D38) |      \
                                      PIN_PUPDR_PULLUP(GPIOE_ZIO_D37))
 #define VAL_GPIOE_ODR               (PIN_ODR_HIGH(GPIOE_ZIO_D34) |          \
@@ -1123,7 +1119,7 @@
                                      PIN_ODR_HIGH(GPIOE_MAIN_POWER) |          \
                                      PIN_ODR_HIGH(GPIOE_ARD_D5) |           \
                                      PIN_ODR_HIGH(GPIOE_ZIO_D39) |          \
-                                     PIN_ODR_HIGH(GPIOE_ARD_D3) |           \
+                                     PIN_ODR_LOW(GPIOE_MPL3115A2_PWR) |           \
                                      PIN_ODR_HIGH(GPIOE_ZIO_D38) |          \
                                      PIN_ODR_HIGH(GPIOE_ZIO_D37))
 #define VAL_GPIOE_AFRL              (PIN_AFIO_AF(GPIOE_ZIO_D34, 0U) |       \
@@ -1139,7 +1135,7 @@
                                      PIN_AFIO_AF(GPIOE_MAIN_POWER, 0U) |       \
                                      PIN_AFIO_AF(GPIOE_ARD_D5, 0U) |        \
                                      PIN_AFIO_AF(GPIOE_ZIO_D39, 0U) |       \
-                                     PIN_AFIO_AF(GPIOE_ARD_D3, 0U) |        \
+                                     PIN_AFIO_AF(GPIOE_MPL3115A2_PWR, 0U) |        \
                                      PIN_AFIO_AF(GPIOE_ZIO_D38, 0U) |       \
                                      PIN_AFIO_AF(GPIOE_ZIO_D37, 0U))
 

@@ -263,5 +263,13 @@ bool mmc_lld_is_write_protected(MMCDriver *mmcp) {
  * @note    You can add your board-specific code here.
  */
 void boardInit(void) {
-
+  // MPL3115A2 power pin
+//  palSetLineMode(LINE_MPL3115A2_PWR, PAL_MODE_OUTPUT_PUSHPULL);
+//  palSetLine(LINE_MPL3115A2_PWR);
+//
+//  // I2C2 Alternate pins
+//  palSetLineMode(LINE_MPL3115A2_SCL, PAL_MODE_ALTERNATE(4) |
+//                               PAL_STM32_OSPEED_HIGHEST | PAL_STM32_OTYPE_OPENDRAIN);
+//  palSetLineMode(LINE_MPL3115A2_SDA, PAL_MODE_ALTERNATE(4) |
+//                               PAL_STM32_OSPEED_HIGHEST | PAL_STM32_OTYPE_OPENDRAIN);
 }

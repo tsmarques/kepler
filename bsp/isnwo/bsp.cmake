@@ -5,7 +5,12 @@
 
 # All BSP sources
 set(BSP_SOURCES
-        ${BSP_SOURCE_DIR}/bsp.cpp)
+        ${BSP_SOURCE_DIR}/bsp.cpp
+        ${CMAKE_SOURCE_DIR}/src/driver/MPL3115A2.hpp
+        ${CHIBIOS}/os/hal/src/hal_i2c.c
+        ${CHIBIOS}/os/hal/ports/STM32/LLD/I2Cv2/hal_i2c_lld.c
+        ${CHIBIOS}/os/hal/include/hal_i2c.h
+        )
 
 # Path to Config.hpp file
 set(BSP_CONFIG_HPP ${BSP_SOURCE_DIR}/Config.hpp)
