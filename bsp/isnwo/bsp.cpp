@@ -55,12 +55,15 @@ light_them_up()
   chThdSleepMilliseconds(100);
 
   palSetLine(LINE_LED_GREEN);
+
+  palClearLine(LINE_LED_RED);
+  palClearLine(LINE_LED_GREEN);
+  palClearLine(LINE_LED_BLUE);
 }
 
 void
 bsp_init(mailbox_t* data_bus)
 {
-//  light_them_up();
-
+  light_them_up();
   kepler::drivers::mpl3115a2::start(data_bus);
 }
