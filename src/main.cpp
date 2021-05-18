@@ -4,6 +4,7 @@
 #include <data/Attitude.hpp>
 #include <data/GpsFix.hpp>
 #include <data/Pressure.hpp>
+#include <data/Temperature.hpp>
 
 extern void bsp_init(mailbox_t* data_bus);
 
@@ -44,7 +45,12 @@ int main()
         {
           kepler::data::Pressure* p = static_cast<kepler::data::Pressure*>(msg);
           trace("Pressure | value %.3f\r\n", p->value);
+          break;
         }
+        case kepler::DT_TEMPERATURE:
+          kepler::data::Temperature* t = static_cast<kepler::data::Temperature*>(msg);
+          trace("Temperature | value %.3f\r\n", t->value);
+          break;
       }
     }
   }

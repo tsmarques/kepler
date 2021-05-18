@@ -79,7 +79,8 @@ set(KEPLER_SOURCES
         src/data/BasicData.hpp
         src/data/GpsFix.hpp
         src/data/Attitude.hpp
-        src/data/Pressure.hpp)
+        src/data/Pressure.hpp
+        src/data/Temperature.hpp)
 
 kepler_target(kepler src/main.cpp)
 target_compile_options(kepler PRIVATE -O2)
