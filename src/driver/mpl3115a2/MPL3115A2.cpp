@@ -1,6 +1,3 @@
-#ifndef KEPLER_DRIVER_MPL3115A2_HPP
-#define KEPLER_DRIVER_MPL3115A2_HPP
-
 #include <Config.hpp>
 #include <data/Pressure.hpp>
 #include <data/Temperature.hpp>
@@ -79,4 +76,3 @@ kepler::drivers::MPL3115A2::start(mailbox_t* bus, I2CDriver* plat_drv)
                              altimeter_driver_thread,
                              bus);
 }
-#endif
