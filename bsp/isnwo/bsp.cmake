@@ -8,8 +8,6 @@ set(BSP_SOURCES
         ${BSP_SOURCE_DIR}/bsp.cpp
         ${CMAKE_SOURCE_DIR}/src/driver/mpl3115a2/MPL3115A2.hpp
         ${CMAKE_SOURCE_DIR}/src/driver/mpl3115a2/MPL3115A2.cpp
-        ${CMAKE_SOURCE_DIR}/src/driver/ICM20948.hpp
-        ${CMAKE_SOURCE_DIR}/src/hardware/I2C.hpp
         ${CHIBIOS}/os/hal/src/hal_i2c.c
         ${CHIBIOS}/os/hal/ports/STM32/LLD/I2Cv2/hal_i2c_lld.c
         ${CHIBIOS}/os/hal/include/hal_i2c.h
