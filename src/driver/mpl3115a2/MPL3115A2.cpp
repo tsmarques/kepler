@@ -8,7 +8,9 @@
 #include "../../../bsp/trace.h"
 #include "MPL3115A2.hpp"
 
-static kepler::drivers::MPL3115A2 drv;
+using namespace kepler::drivers;
+
+static MPL3115A2 drv;
 
 static THD_FUNCTION(altimeter_driver_thread, arg)
 {
@@ -16,7 +18,7 @@ static THD_FUNCTION(altimeter_driver_thread, arg)
 
   trace("mpl3115a2: requesting device ID\r\n");
   uint8_t dev_id;
-  if(drv.whoAmI(&dev_id) == MSG_OK && dev_id == DEVICE_ID)
+  if(drv.whoAmI(dev_id) == MSG_OK && dev_id == MPL3115A2::c_device_id)
     trace("mpl3115a2: 0x%02X\r\n", dev_id);
   else
     trace("mpl: failed to read id\r\n");
@@ -33,7 +35,7 @@ static THD_FUNCTION(altimeter_driver_thread, arg)
   drv.setOSRBit(ctrl_reg_1);
 
   trace("CTRL: %02x\r\n", ctrl_reg_1);
-  if (drv.writeRegister(CTRL_REG1, ctrl_reg_1) != MSG_OK)
+  if (drv.writeRegister(MPL3115A2::CTRL_REG_1, ctrl_reg_1) != MSG_OK)
   {
     trace("mpl: failed to set control register\r\n");
   }
