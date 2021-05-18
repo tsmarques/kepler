@@ -8,5 +8,6 @@
 #define KEPLER_Hz2MS(x) (1000 / x)
 
 #define KEPLER_ALTIMETER_PERIOD     KEPLER_Hz2MS(5)
+#define KEPLER_IMU_PERIOD           KEPLER_Hz2MS(20)
 
 #endif
