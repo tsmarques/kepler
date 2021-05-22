@@ -5,7 +5,8 @@
 #  include <cstdio>
 #  define trace(...) printf(__VA_ARGS__)
 #else
-#  define trace(...)
+#  define trace(...) do { \
+  } while(false)
 #endif
 
 #endif
